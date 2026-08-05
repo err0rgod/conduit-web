@@ -21,11 +21,6 @@ function Navigation() {
         <Link to="/docs" style={{ color: path === '/docs' ? '#fff' : '#888' }}>Docs</Link>
         <Link to="/pricing" style={{ color: path === '/pricing' ? '#fff' : '#888' }}>Pricing</Link>
         <a href="https://github.com/err0rgod/skills/blob/main/conduit/SKILL.md">Skills</a>
-      </div>
-      <div className="status">
-        <div className="status-dot"></div>
-        Operational
-      </div>
     </header>
   );
 }
