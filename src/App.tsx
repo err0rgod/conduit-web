@@ -3,97 +3,122 @@ import './index.css';
 
 function App() {
   const [copied, setCopied] = useState(false);
+  
+  const installCmd = "irm https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.ps1 | iex";
 
-  const installCommand = 'irm https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.ps1 | iex';
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(installCommand);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(installCmd);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="app-container">
-      <header className="header">
-        <div className="logo-container">
-          <img src="/logo.jpg" alt="Conduit Logo" className="logo" />
-          <span className="brand-name">Conduit</span>
+    <div className="container">
+      <header>
+        <a href="#" className="brand">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+          CONDUIT
+        </a>
+        <div className="nav">
+          <a href="#platform">Platform</a>
+          <a href="#docs">Docs</a>
+          <a href="https://github.com/err0rgod/conduit">GitHub</a>
+          <a href="https://github.com/err0rgod/skills/blob/main/conduit/SKILL.md">Skills</a>
         </div>
-        <nav className="nav-links">
-          <a href="#docs" className="nav-link">Documentation</a>
-          <a href="#skills" className="nav-link">Agent Skills</a>
-          <a href="https://github.com/err0rgod/conduit" className="nav-link">GitHub</a>
-        </nav>
+        <div className="status">
+          <div className="status-dot"></div>
+          Operational
+        </div>
       </header>
 
       <main>
         <section className="hero">
-          <h1>The Bridge Between <br/>AI and Your Browser.</h1>
+          <h1>Your agents need a browser.</h1>
           <p>
-            An open-source, local-first browser-control bridge for AI agents. 
-            Connect MCP or CLI clients to your existing Chromium browser securely.
+            One secure, local-first bridge to your Chromium browser. Conduit handles the permissions, DOM structures, and routing, so your agents can keep moving.
           </p>
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <button className="button" onClick={handleCopy}>
+              {copied ? 'Copied' : 'Install Conduit'}
+            </button>
+            <a href="https://github.com/err0rgod/conduit" className="button secondary">View Source</a>
+          </div>
 
-          <div className="terminal">
-            <div className="terminal-header">
-              <div className="dot red"></div>
-              <div className="dot yellow"></div>
-              <div className="dot green"></div>
+          <div className="code-block">
+            <div className="copy-text" onClick={handleCopy}>
+              {copied ? 'Copied!' : 'Copy'}
             </div>
             <pre>
               <code>
-                <span style={{color: '#ff00f0'}}>PS D:\&gt;</span> {installCommand}
+<span style={{ color: '#569CD6' }}>PS</span> {'>'} {installCmd}
               </code>
             </pre>
           </div>
-          <button className="copy-btn" onClick={copyToClipboard}>
-            {copied ? 'Copied to Clipboard!' : 'Copy 1-Minute Setup Command'}
-          </button>
         </section>
 
-        <section id="features" className="grid">
-          <div className="glass-card">
-            <div className="card-icon">⚡</div>
-            <h3>Local-First & Secure</h3>
-            <p>Runs a background daemon locally. Enforces strict domain policies, explicit authorizations, and runtime validation. Loopback-only by default.</p>
-          </div>
-          <div className="glass-card">
-            <div className="card-icon">🤖</div>
-            <h3>MCP Ready</h3>
-            <p>Seamlessly integrates with Claude Code, Cursor, and Windsurf via the Model Context Protocol. Exposes tools like browser_snapshot and browser_click natively.</p>
-          </div>
-          <div className="glass-card">
-            <div className="card-icon">📚</div>
-            <h3>Agent Skills</h3>
-            <p>Teach your AI agents exactly how to use Conduit. We provide pre-written SKILL files to ensure prompt-injection safety and best practices.</p>
-            <a href="https://github.com/err0rgod/skills/blob/main/conduit/SKILL.md" className="action-link">View SKILL.md →</a>
+        <section id="platform" className="section">
+          <h2>Failure is expected. Blindness isn’t.</h2>
+          <p className="subtitle">
+            Your AI agent talks to Conduit once. We continuously enforce domain policies, generate structured accessibility trees, and execute precise actions.
+          </p>
+
+          <div className="grid-3">
+            <div className="card">
+              <h3>Secure defaults</h3>
+              <p>Loopback-only daemon, explicit domain approvals, and runtime action validation. Agents operate exactly within their bounds.</p>
+            </div>
+            <div className="card">
+              <h3>Structured snapshots</h3>
+              <p>Don't guess CSS selectors. Conduit provides precise accessibility trees with temporary, stable element references.</p>
+            </div>
+            <div className="card">
+              <h3>MCP Native</h3>
+              <p>Fully supports the Model Context Protocol. Drop Conduit into Claude Code, Cursor, or Windsurf without changing your configuration.</p>
+            </div>
           </div>
         </section>
 
-        <section id="docs" className="glass-card" style={{marginBottom: '2rem'}}>
-          <h2>Documentation</h2>
-          <br/>
-          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem'}}>
-            <div>
-              <h3 style={{color: 'var(--accent-cyan)'}}>macOS / Linux Install</h3>
-              <p style={{marginBottom: '1rem'}}>Prefer Bash? We have a curl script for you.</p>
-              <pre style={{background: 'rgba(0,0,0,0.5)', padding: '1rem', borderRadius: '8px'}}>
-                curl -fsSL https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.sh | bash
+        <section id="docs" className="section">
+          <h2>Change the browser. Keep the agent.</h2>
+          <p className="subtitle">
+            Conduit speaks the standard MCP tool shapes your agents already know. Keep your existing AI workflows and SDKs.
+          </p>
+          
+          <div className="grid-3">
+            <div className="card">
+              <h3>MacOS & Linux</h3>
+              <p>Prefer bash? Use the shell installer.</p>
+              <pre style={{marginTop: '1rem', fontSize: '0.85rem', color: '#ccc', background: '#000', padding: '1rem', borderRadius: '4px'}}>
+                <code>curl -fsSL https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.sh | bash</code>
               </pre>
             </div>
-            <div>
-              <h3 style={{color: 'var(--accent-magenta)'}}>Connecting the Extension</h3>
-              <p style={{marginBottom: '0.5rem'}}>1. Navigate to <code>chrome://extensions</code></p>
-              <p style={{marginBottom: '0.5rem'}}>2. Enable <strong>Developer mode</strong></p>
-              <p style={{marginBottom: '0.5rem'}}>3. Click <strong>Load unpacked</strong></p>
-              <p>4. Paste the path printed by the setup script.</p>
+            <div className="card">
+              <h3>Extension Setup</h3>
+              <p>1. Open <code style={{color: '#fff'}}>chrome://extensions</code></p>
+              <p>2. Enable <strong>Developer mode</strong></p>
+              <p>3. <strong>Load unpacked</strong></p>
+              <p>4. Paste the setup path.</p>
+            </div>
+            <div className="card">
+              <h3>Agent Skills</h3>
+              <p>Provide your agents with perfect context.</p>
+              <a href="https://github.com/err0rgod/skills/blob/main/conduit/SKILL.md" style={{ color: '#fff', textDecoration: 'underline', marginTop: '1rem', display: 'inline-block'}}>
+                Read SKILL.md
+              </a>
             </div>
           </div>
         </section>
       </main>
 
       <footer>
-        <p>Built with ❤️ for AI Agents. Conduit is an open-source project.</p>
+        <div className="copyright">© 2026 Conduit. The open-source browser bridge.</div>
+        <div className="footer-links">
+          <a href="#platform">Platform</a>
+          <a href="#docs">Docs</a>
+          <a href="https://github.com/err0rgod/conduit">GitHub</a>
+        </div>
       </footer>
     </div>
   );
