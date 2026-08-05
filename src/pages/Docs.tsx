@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { BookOpen, Code, Terminal, Shield } from 'lucide-react';
+import { Code, Terminal, Shield } from 'lucide-react';
 
 export default function Docs() {
   return (
