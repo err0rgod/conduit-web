@@ -4,13 +4,21 @@ import { Terminal, Copy, Check } from 'lucide-react';
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
+  const [bashCopied, setBashCopied] = useState(false);
   
   const installCmd = "irm https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.ps1 | iex";
+  const bashCmd = "curl -fsSL https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.sh | bash";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(installCmd);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleBashCopy = () => {
+    navigator.clipboard.writeText(bashCmd);
+    setBashCopied(true);
+    setTimeout(() => setBashCopied(false), 2000);
   };
 
   return (
@@ -28,16 +36,32 @@ export default function Home() {
           <Link to="/docs" className="button secondary">Read the Docs</Link>
         </div>
 
-        <div className="code-block">
-          <div className="copy-text" onClick={handleCopy}>
-            {copied ? <Check size={14}/> : <Copy size={14}/>}
-            {copied ? 'Copied!' : 'Copy'}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '3rem' }}>
+          <div className="code-block" style={{ marginTop: 0 }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, padding: '0.25rem 1rem', background: 'rgba(255,255,255,0.1)', fontSize: '0.75rem', fontWeight: 600, borderBottomRightRadius: '8px' }}>WINDOWS (POWERSHELL)</div>
+            <div className="copy-text" onClick={handleCopy}>
+              {copied ? <Check size={14}/> : <Copy size={14}/>}
+              {copied ? 'Copied!' : 'Copy'}
+            </div>
+            <pre style={{ paddingTop: '1.5rem' }}>
+              <code>
+  <span style={{ color: '#569CD6' }}>PS</span> {'>'} {installCmd}
+              </code>
+            </pre>
           </div>
-          <pre>
-            <code>
-<span style={{ color: '#569CD6' }}>PS</span> {'>'} {installCmd}
-            </code>
-          </pre>
+
+          <div className="code-block" style={{ marginTop: 0 }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, padding: '0.25rem 1rem', background: 'rgba(255,255,255,0.1)', fontSize: '0.75rem', fontWeight: 600, borderBottomRightRadius: '8px' }}>MACOS / LINUX (BASH)</div>
+            <div className="copy-text" onClick={handleBashCopy}>
+              {bashCopied ? <Check size={14}/> : <Copy size={14}/>}
+              {bashCopied ? 'Copied!' : 'Copy'}
+            </div>
+            <pre style={{ paddingTop: '1.5rem' }}>
+              <code>
+  <span style={{ color: '#22c55e' }}>$</span> {bashCmd}
+              </code>
+            </pre>
+          </div>
         </div>
       </section>
 

@@ -1,7 +1,6 @@
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Docs from './pages/Docs';
-import Pricing from './pages/Pricing';
 import './index.css';
 
 function Navigation() {
@@ -19,7 +18,6 @@ function Navigation() {
       <div className="nav">
         <Link to="/" style={{ color: path === '/' ? '#fff' : '#888' }}>Platform</Link>
         <Link to="/docs" style={{ color: path === '/docs' ? '#fff' : '#888' }}>Docs</Link>
-        <Link to="/pricing" style={{ color: path === '/pricing' ? '#fff' : '#888' }}>Pricing</Link>
         <a href="https://github.com/err0rgod/skills/blob/main/conduit/SKILL.md">Skills</a>
       </div>
     </header>
@@ -35,7 +33,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/docs" element={<Docs />} />
-          <Route path="/pricing" element={<Pricing />} />
         </Routes>
 
         <footer>
