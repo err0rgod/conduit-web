@@ -79,7 +79,7 @@ export default function Docs() {
 
         <a
           className="edit-link"
-          href="https://github.com/err0rgod/conduit-web/edit/master/src/docs.ts"
+          href="https://github.com/err0rgod/conduit-web/edit/main/src/docs.ts"
           target="_blank"
           rel="noreferrer"
         >
