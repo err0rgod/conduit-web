@@ -1,32 +1,34 @@
-# React + TypeScript + Vite
+# Conduit documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+The public documentation and project website for [Conduit](https://github.com/err0rgod/conduit), an open-source, local-first browser-control bridge for AI agents.
 
-Currently, two official plugins are available:
+The site is a static React/Vite application deployed to GitHub Pages at <https://err0rgod.github.io/conduit-web/>. It contains the installation, architecture, security, extension, daemon, MCP, CLI, browser-tool, configuration, testing, troubleshooting, contribution, roadmap, and changelog guides.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Development
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+corepack enable
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Validation
+
+```bash
+pnpm format:check
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+The backend repository also pins and builds this repository in its cross-platform CI. GitHub Pages deploys only after this repository passes its validation gate.
+
+## Related repositories
+
+- [conduit](https://github.com/err0rgod/conduit) — daemon, CLI, MCP adapter, security, and releases
+- [conduit-extension](https://github.com/err0rgod/conduit-extension) — Manifest V3 browser extension
+
+## License
+
+Documentation and site code are available under the project’s MIT License.
