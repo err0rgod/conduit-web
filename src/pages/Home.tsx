@@ -1,124 +1,228 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Terminal, Copy, Check } from 'lucide-react';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Check, Copy, ShieldCheck, Terminal } from "lucide-react";
+
+const installCommands = {
+  windows:
+    "irm https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.ps1 | iex",
+  unix: "curl -fsSL https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.sh | bash",
+};
 
 export default function Home() {
-  const [copied, setCopied] = useState(false);
-  const [bashCopied, setBashCopied] = useState(false);
-  
-  const installCmd = "irm https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.ps1 | iex";
-  const bashCmd = "curl -fsSL https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.sh | bash";
+  const [copied, setCopied] = useState<string>();
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(installCmd);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleBashCopy = () => {
-    navigator.clipboard.writeText(bashCmd);
-    setBashCopied(true);
-    setTimeout(() => setBashCopied(false), 2000);
-  };
+  async function copy(label: string, value: string) {
+    await navigator.clipboard.writeText(value);
+    setCopied(label);
+    window.setTimeout(() => setCopied(undefined), 1800);
+  }
 
   return (
     <main>
       <section className="hero">
-        <h1>Your agents need a browser.</h1>
+        <div className="eyebrow">
+          <span className="status-dot" /> v0.1.1 · local-first · open source
+        </div>
+        <h1>Connect any AI agent to your browser securely.</h1>
         <p>
-          One secure, local-first bridge to your Chromium browser. Conduit handles the permissions, DOM structures, and routing, so your agents can keep moving.
+          Conduit is a local browser-control bridge: one authenticated daemon,
+          one least-privilege Chromium extension, and typed tools for MCP and
+          CLI clients.
         </p>
-        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-          <button className="button" onClick={handleCopy}>
-            {copied ? <Check size={18} /> : <Terminal size={18} />}
-            {copied ? 'Copied' : 'Install Conduit'}
+        <div className="hero-actions">
+          <button
+            className="button"
+            onClick={() => copy("windows", installCommands.windows)}
+          >
+            {copied === "windows" ? (
+              <Check size={18} />
+            ) : (
+              <Terminal size={18} />
+            )}
+            {copied === "windows" ? "Copied" : "Install for Windows"}
           </button>
-          <Link to="/docs" className="button secondary">Read the Docs</Link>
+          <Link to="/docs/getting-started" className="button secondary">
+            Read the docs
+          </Link>
+          <a
+            className="button ghost"
+            href="https://github.com/err0rgod/conduit"
+          >
+            GitHub
+          </a>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '3rem' }}>
-          <div className="code-block" style={{ marginTop: 0 }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, padding: '0.25rem 1rem', background: 'rgba(255,255,255,0.1)', fontSize: '0.75rem', fontWeight: 600, borderBottomRightRadius: '8px' }}>WINDOWS (POWERSHELL)</div>
-            <div className="copy-text" onClick={handleCopy}>
-              {copied ? <Check size={14}/> : <Copy size={14}/>}
-              {copied ? 'Copied!' : 'Copy'}
-            </div>
-            <pre style={{ paddingTop: '1.5rem' }}>
-              <code>
-  <span style={{ color: '#569CD6' }}>PS</span> {'>'} {installCmd}
-              </code>
-            </pre>
-          </div>
+        <InstallCommand
+          label="Windows · PowerShell"
+          value={installCommands.windows}
+          copied={copied === "windows"}
+          onCopy={() => copy("windows", installCommands.windows)}
+        />
+        <InstallCommand
+          label="macOS / Linux · Bash"
+          value={installCommands.unix}
+          copied={copied === "unix"}
+          onCopy={() => copy("unix", installCommands.unix)}
+        />
+      </section>
 
-          <div className="code-block" style={{ marginTop: 0 }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, padding: '0.25rem 1rem', background: 'rgba(255,255,255,0.1)', fontSize: '0.75rem', fontWeight: 600, borderBottomRightRadius: '8px' }}>MACOS / LINUX (BASH)</div>
-            <div className="copy-text" onClick={handleBashCopy}>
-              {bashCopied ? <Check size={14}/> : <Copy size={14}/>}
-              {bashCopied ? 'Copied!' : 'Copy'}
-            </div>
-            <pre style={{ paddingTop: '1.5rem' }}>
-              <code>
-  <span style={{ color: '#22c55e' }}>$</span> {bashCmd}
-              </code>
-            </pre>
-          </div>
+      <section className="security-banner">
+        <ShieldCheck size={24} />
+        <div>
+          <strong>Page content is data, not trusted agent instruction.</strong>
+          <p>
+            Conduit keeps page text outside the permission boundary and asks
+            users to grant each site.
+          </p>
         </div>
       </section>
 
       <section className="section">
-        <h2>Failure is expected. Blindness isn’t.</h2>
+        <h2>A small, inspectable control path.</h2>
         <p className="subtitle">
-          Your AI agent talks to Conduit once. We continuously enforce domain policies, generate structured accessibility trees, and execute precise actions.
+          Every request crosses explicit authentication, validation, policy, and
+          browser permission boundaries.
         </p>
-
-        <div className="grid-3">
-          <div className="card">
-            <h3>Secure defaults</h3>
-            <p>Loopback-only daemon, explicit domain approvals, and runtime action validation. Agents operate exactly within their bounds.</p>
-          </div>
-          <div className="card">
-            <h3>Structured snapshots</h3>
-            <p>Don't guess CSS selectors. Conduit provides precise accessibility trees with temporary, stable element references.</p>
-          </div>
-          <div className="card">
-            <h3>MCP Native</h3>
-            <p>Fully supports the Model Context Protocol. Drop Conduit into Claude Code, Cursor, or Windsurf without changing your configuration.</p>
-          </div>
+        <div className="architecture-flow" aria-label="Conduit architecture">
+          {[
+            "AI agent",
+            "MCP or CLI",
+            "Local daemon",
+            "MV3 extension",
+            "Browser tab",
+          ].map((item, index) => (
+            <div className="flow-step" key={item}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{item}</strong>
+              {index < 4 && <i aria-hidden="true">→</i>}
+            </div>
+          ))}
         </div>
       </section>
 
       <section className="section">
-        <h2>Change the browser. Keep the agent.</h2>
-        <p className="subtitle">
-          Conduit speaks the standard MCP tool shapes your agents already know. Keep your existing AI workflows and SDKs.
-        </p>
-        
+        <h2>Secure defaults, useful tools.</h2>
         <div className="grid-3">
-          <div className="card">
-            <h3>MacOS & Linux</h3>
-            <p>Prefer bash? Use the shell installer to set up the CLI and Daemon automatically.</p>
-            <pre style={{marginTop: '1.5rem', fontSize: '0.8rem', color: '#ccc', background: '#000', padding: '1rem', borderRadius: '4px', border: '1px solid #222', overflowX: 'auto'}}>
-              <code>curl -fsSL https://conduit.dev/install.sh | bash</code>
-            </pre>
-          </div>
-          <div className="card">
-            <h3>Extension Setup</h3>
-            <div style={{marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem', color: '#888'}}>
-              <p><span style={{color: '#fff'}}>1.</span> Open <code style={{color: '#fff'}}>chrome://extensions</code></p>
-              <p><span style={{color: '#fff'}}>2.</span> Enable <strong>Developer mode</strong></p>
-              <p><span style={{color: '#fff'}}>3.</span> Click <strong>Load unpacked</strong></p>
-              <p><span style={{color: '#fff'}}>4.</span> Paste the local build path.</p>
+          <Feature title="Local by default">
+            Loopback-only networking, random local authentication, and no
+            Conduit cloud or public relay.
+          </Feature>
+          <Feature title="Per-site browser access">
+            The extension asks Chromium for the current origin. Users can revoke
+            it from the same popup.
+          </Feature>
+          <Feature title="Structured snapshots">
+            Accessibility-oriented page data and short-lived element IDs reduce
+            reliance on fragile selectors.
+          </Feature>
+          <Feature title="MCP and CLI">
+            Strongly typed browser tools return validated results through either
+            integration surface.
+          </Feature>
+          <Feature title="Policy before action">
+            Capability grants, domain rules, confirmations, upload allowlists,
+            and payload limits are enforced centrally.
+          </Feature>
+          <Feature title="Tested release path">
+            Cross-platform CI, security tests, real Chromium E2E, and
+            checksummed GitHub Release artifacts.
+          </Feature>
+        </div>
+      </section>
+
+      <section className="section split-section">
+        <div>
+          <div className="eyebrow">One-minute setup</div>
+          <h2>The backend installs. The browser stays yours.</h2>
+          <p className="subtitle">
+            Setup registers a current-user Native Messaging host, starts the
+            daemon, and prints the exact extension directory to load. No
+            administrator access is required.
+          </p>
+          <Link className="text-link" to="/docs/quick-start">
+            Follow the quick start →
+          </Link>
+        </div>
+        <ol className="setup-list">
+          <li>
+            <span>1</span>
+            <div>
+              <strong>Run the installer</strong>
+              <p>Downloads and verifies the backend and extension.</p>
             </div>
-          </div>
-          <div className="card">
-            <h3>Agent Skills</h3>
-            <p>Provide your agents with perfect context and rules so they know exactly how to operate Conduit.</p>
-            <Link to="/docs" style={{ color: '#fff', textDecoration: 'none', borderBottom: '1px solid #fff', marginTop: '1.5rem', display: 'inline-block', fontWeight: 500}}>
-              Read the SKILL.md guide →
-            </Link>
-          </div>
+          </li>
+          <li>
+            <span>2</span>
+            <div>
+              <strong>Load unpacked</strong>
+              <p>Select the versioned path printed by setup.</p>
+            </div>
+          </li>
+          <li>
+            <span>3</span>
+            <div>
+              <strong>Allow one site</strong>
+              <p>Use the popup on a non-sensitive test page.</p>
+            </div>
+          </li>
+          <li>
+            <span>4</span>
+            <div>
+              <strong>Connect an agent</strong>
+              <p>Launch conduit mcp or use direct CLI commands.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section className="cta">
+        <div>
+          <div className="eyebrow">Project status</div>
+          <h2>Pre-1.0, honest, and ready to study.</h2>
+          <p>
+            The core vertical slice works. Sensitive unattended use is not
+            recommended yet.
+          </p>
+        </div>
+        <div className="hero-actions">
+          <Link className="button" to="/docs/roadmap">
+            View roadmap
+          </Link>
+          <a
+            className="button secondary"
+            href="https://github.com/err0rgod/conduit/releases/tag/v0.1.1"
+          >
+            Release v0.1.1
+          </a>
         </div>
       </section>
     </main>
+  );
+}
+
+function InstallCommand(props: {
+  label: string;
+  value: string;
+  copied: boolean;
+  onCopy: () => void;
+}) {
+  return (
+    <div className="install-command">
+      <div className="command-label">{props.label}</div>
+      <code>{props.value}</code>
+      <button onClick={props.onCopy} aria-label={`Copy ${props.label} command`}>
+        {props.copied ? <Check size={15} /> : <Copy size={15} />}
+        {props.copied ? "Copied" : "Copy"}
+      </button>
+    </div>
+  );
+}
+
+function Feature(props: { title: string; children: string }) {
+  return (
+    <div className="card">
+      <h3>{props.title}</h3>
+      <p>{props.children}</p>
+    </div>
   );
 }
