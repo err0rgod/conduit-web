@@ -49,4 +49,23 @@ describe("documentation catalog", () => {
     expect(defaultDoc.slug).toBe("getting-started");
     expect(findDoc("missing")).toBeUndefined();
   });
+
+  it("documents broad Chromium access and daemon allow-all as separate opt-ins", () => {
+    const extension = JSON.stringify(findDoc("browser-extension"));
+    const permissions = JSON.stringify(findDoc("permissions"));
+    const domains = JSON.stringify(findDoc("domain-policies"));
+    const configuration = JSON.stringify(findDoc("configuration"));
+
+    expect(extension).toContain("http://*/*");
+    expect(extension).toContain("https://*/*");
+    expect(extension).toContain("user click");
+    expect(extension).toContain("Chromium owns");
+    expect(permissions).toContain("Both boundaries must allow");
+
+    expect(domains).toContain("ask is the default");
+    expect(domains).toContain("local-only");
+    expect(domains).toContain("does not override blocked domains");
+    expect(configuration).toContain("remote.enabled is true");
+    expect(configuration).toContain("not hot-reloaded");
+  });
 });

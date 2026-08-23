@@ -21,7 +21,7 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="eyebrow">
-          <span className="status-dot" /> v0.1.1 · local-first · open source
+          <span className="status-dot" /> backend v0.1.1 · extension v0.1.2
         </div>
         <h1>Connect any AI agent to your browser securely.</h1>
         <p>
@@ -71,8 +71,9 @@ export default function Home() {
         <div>
           <strong>Page content is data, not trusted agent instruction.</strong>
           <p>
-            Conduit keeps page text outside the permission boundary and asks
-            users to grant each site.
+            Conduit keeps page text outside the permission boundary. Per-site
+            access remains the default; broader access requires an explicit user
+            opt-in and never bypasses daemon policy.
           </p>
         </div>
       </section>
@@ -109,7 +110,7 @@ export default function Home() {
           </Feature>
           <Feature title="Per-site browser access">
             The extension asks Chromium for the current origin. Users can revoke
-            it from the same popup.
+            it from the same popup or explicitly opt into all HTTP/HTTPS sites.
           </Feature>
           <Feature title="Structured snapshots">
             Accessibility-oriented page data and short-lived element IDs reduce
@@ -190,9 +191,9 @@ export default function Home() {
           </Link>
           <a
             className="button secondary"
-            href="https://github.com/err0rgod/conduit/releases/tag/v0.1.1"
+            href="https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.2"
           >
-            Release v0.1.1
+            Extension v0.1.2
           </a>
         </div>
       </section>

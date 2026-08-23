@@ -34,7 +34,7 @@ export const docs: DocPage[] = [
       {
         heading: "Before the first action",
         paragraphs: [
-          "Run setup, load the exact extension directory printed by the installer, and grant only the site you intend to automate from the extension popup. Conduit starts with browser.read only and asks on first-use domains.",
+          "Run setup, load the exact extension directory printed by the installer, and grant only the site you intend to automate from the extension popup. Conduit starts with browser.read only and asks on first-use domains. Per-site access is the recommended default; an operator may explicitly choose Allow all sites for a local workflow, but that Chromium grant never changes daemon policy.",
         ],
         code: "conduit setup\nconduit doctor\nconduit browser tabs",
         note: "Conduit is pre-1.0. Use a disposable browser profile and non-sensitive test pages while evaluating it.",
@@ -89,7 +89,7 @@ export const docs: DocPage[] = [
       {
         heading: "2. Grant a test site",
         paragraphs: [
-          "Open https://example.com, open the Conduit popup, and choose Allow this site. Accept Chromium’s native permission prompt. This grant is separate from the daemon domain policy.",
+          "Open https://example.com, open the Conduit popup, and choose Allow this site. Accept Chromium's native permission prompt. This grant is separate from the daemon domain policy. The popup also offers an explicit Allow all sites action for local workflows; it requests only http://*/* and https://*/* after the user's click.",
         ],
       },
       {
@@ -130,7 +130,7 @@ export const docs: DocPage[] = [
     slug: "browser-extension",
     title: "Browser Extension",
     summary:
-      "Load, connect, grant per-origin access, and disconnect the least-privilege MV3 extension.",
+      "Load, connect, grant per-origin or explicitly broad access, and disconnect the least-privilege MV3 extension.",
     blocks: [
       {
         heading: "Connection",
@@ -141,18 +141,20 @@ export const docs: DocPage[] = [
       {
         heading: "Site access",
         paragraphs: [
-          "The production manifest declares HTTP and HTTPS origins as optional host permissions. Inspecting, scripting, or capturing a page fails until the user grants the current origin through Chromium’s permission UI.",
+          "The production manifest declares HTTP and HTTPS origins as optional host permissions. Inspecting, scripting, or capturing a page fails until Chromium grants the origin. Per-site access is the normal path. The popup can also request exactly http://*/* and https://*/* through a user click and Chromium's native permission prompt; Conduit does not persist a second broad-access flag, and Chromium owns the resulting permission state.",
         ],
         bullets: [
           "Allow this site requests only the current origin.",
           "Revoke this site removes that origin grant.",
+          "Allow all sites is an explicit popup-only opt-in for both HTTP and HTTPS host patterns; it is never requested by the background service worker.",
+          "Revoke all sites removes those two broad patterns and leaves per-site grants and daemon policy unchanged.",
           "Emergency disconnect closes the daemon connection without changing browser permissions.",
         ],
       },
       {
         heading: "Browser APIs",
         paragraphs: [
-          "Core actions use tabs and scripting. Debugger and downloads are optional permissions. Broad host access is not required in the published v0.1.1 extension.",
+          "Core actions use tabs and scripting. Debugger and downloads are optional permissions. The published extension is v0.1.2; broad host access remains optional, user-initiated, and independent from daemon authorization.",
         ],
       },
     ],
@@ -327,7 +329,7 @@ export const docs: DocPage[] = [
     slug: "domain-policies",
     title: "Domain Policies",
     summary:
-      "Control navigation with allowlist, blocklist, or ask-on-first-use behavior.",
+      "Control navigation with allowlist, blocklist, ask-on-first-use, or an explicit local-only allow-all mode.",
     blocks: [
       {
         heading: "Modes",
@@ -335,11 +337,13 @@ export const docs: DocPage[] = [
           "ask is the default and requires deliberate approval for a new domain.",
           "allowlist denies domains not explicitly allowed.",
           "blocklist allows domains except explicit denials and separate network restrictions.",
+          "allow-all permits public HTTP and HTTPS domains that pass the hard guards, but it is opt-in, local-only, and cannot be enabled while remote mode is on.",
         ],
       },
       {
         heading: "Manage domains",
-        code: "conduit allow-domain example.com\nconduit deny-domain blocked.example\nconduit config set security.domainMode allowlist\nconduit restart",
+        code: "conduit allow-domain example.com\nconduit deny-domain blocked.example\nconduit config set security.domainMode allowlist\nconduit config set security.domainMode '\"allow-all\"'\nconduit restart",
+        note: "Changing domainMode is not hot-reloaded. Restart the daemon. The allow-all mode does not override blocked domains, protocol restrictions, localhost policy, or private-network policy.",
       },
       {
         heading: "Network categories",
@@ -384,6 +388,8 @@ export const docs: DocPage[] = [
           "Random local authentication and an authenticated extension connection.",
           "Runtime protocol and configuration validation.",
           "Deny-by-default capabilities, domain checks, and expiring confirmations.",
+          "Separate Chromium host grants: per-site by default, with an explicit popup-only all-sites request for local workflows.",
+          "The local-only allow-all domain mode still denies blocked domains, invalid or non-HTTP(S) URLs, localhost without its opt-in, and private networks without their opt-in.",
           "Bounded payloads, queues, timeouts, sessions, and authentication attempts.",
           "Canonical upload allowlists and structured audit redaction.",
         ],
@@ -449,8 +455,8 @@ export const docs: DocPage[] = [
       },
       {
         heading: "Validated updates",
-        code: "conduit config set daemon.port 9223\nconduit config set logging.level debug\nconduit config set security.allowedDomains '[\"example.com\"]'\nconduit restart",
-        note: "Non-loopback bind addresses fail validation unless remote mode and TLS paths are configured.",
+        code: "conduit config set daemon.port 9223\nconduit config set logging.level debug\nconduit config set security.allowedDomains '[\"example.com\"]'\nconduit config set security.domainMode '\"allow-all\"'\nconduit restart",
+        note: "Domain mode changes require a daemon restart; configuration is not hot-reloaded. allow-all is rejected when remote.enabled is true and does not bypass blocked domains or localhost/private-network guards. Non-loopback bind addresses fail validation unless remote mode and TLS paths are configured.",
       },
     ],
   },
@@ -501,8 +507,9 @@ export const docs: DocPage[] = [
       {
         heading: "Permission or domain denied",
         bullets: [
-          "Open the extension popup on the target tab and allow that origin.",
-          "Check conduit permissions and the configured domain mode.",
+          "Open the extension popup on the target tab and allow that origin. Per-site access is the recommended first fix.",
+          "If the operator deliberately chose broad local access, use Allow all sites in the popup and accept Chromium's prompt; denial falls back to per-site authorization.",
+          "Check conduit permissions and the configured domain mode. allow-all still cannot bypass blocked domains or network guards.",
           "Grant only the missing daemon capability, then restart.",
           "Localhost and private networks require separate policy flags.",
         ],
@@ -579,7 +586,8 @@ export const docs: DocPage[] = [
           "Checksummed backend and extension GitHub Release artifacts.",
           "No-admin setup and Native Messaging auto-discovery.",
           "Authenticated CLI/MCP-to-daemon-to-extension vertical slice.",
-          "Tabs, navigation, snapshots, interactions, screenshots, allowlisted upload, and download observation.",
+          "Tabs, navigation, snapshots, interactions, screenshots, allowlisted upload, download observation, and opt-in all-sites host controls.",
+          "Independent per-site Chromium access and local-only backend allow-all domain mode; both preserve their enforcement guards.",
           "Domain/capability policy, confirmations, pairing identity, redacted audits, and cross-platform CI.",
         ],
       },
@@ -601,6 +609,13 @@ export const docs: DocPage[] = [
     summary:
       "Review the public release history and security-relevant behavior changes.",
     blocks: [
+      {
+        heading: "Unreleased",
+        bullets: [
+          "The extension v0.1.2 release adds explicit Allow all sites and Revoke all sites popup controls for http://*/* and https://*/*.",
+          "The backend adds the opt-in local-only security.domainMode allow-all value; default ask behavior and hard domain/network guards remain unchanged.",
+        ],
+      },
       {
         heading: "v0.1.1 · 20 August 2026",
         bullets: [
