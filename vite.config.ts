@@ -4,5 +4,6 @@ import react from "@vitejs/plugin-react";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/conduit-web/",
+  // Relative assets work on both the repository Pages path and a custom domain.
+  base: "./",
 });

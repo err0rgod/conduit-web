@@ -2,7 +2,7 @@
 
 The public documentation and project website for [Conduit](https://github.com/err0rgod/conduit), an open-source, local-first browser-control bridge for AI agents.
 
-The site is a static React/Vite application deployed to GitHub Pages at <https://err0rgod.github.io/conduit-web/>. It contains the installation, architecture, security, extension, daemon, MCP, CLI, browser-tool, configuration, testing, troubleshooting, contribution, roadmap, and changelog guides.
+The site is a static React/Vite application deployed to GitHub Pages at <https://conduit.zerodaily.in/> (with the fallback Pages URL <https://err0rgod.github.io/conduit-web/>). It contains the installation, architecture, security, extension, daemon, MCP, CLI, browser-tool, configuration, testing, troubleshooting, contribution, roadmap, and changelog guides.
 
 ## Development
 
