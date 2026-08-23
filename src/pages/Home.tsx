@@ -149,7 +149,10 @@ export default function Home() {
             <span>1</span>
             <div>
               <strong>Run the installer</strong>
-              <p>Downloads and verifies the backend and extension.</p>
+              <p>
+                Downloads and verifies the newest backend and extension
+                releases.
+              </p>
             </div>
           </li>
           <li>
