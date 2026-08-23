@@ -23,18 +23,18 @@ export const docs: DocPage[] = [
       {
         heading: "What Conduit runs",
         paragraphs: [
-          "Conduit is a local bridge, not a hosted browser. The backend package installs the conduit CLI, daemon, and MCP adapter. A separate Manifest V3 extension executes actions inside Chromium. The documentation site is the only hosted component.",
+          "Conduit is a local bridge, not a hosted browser. The backend package installs the conduit CLI, daemon, and MCP adapter. A separate Manifest V3 extension executes actions inside Chrome, Edge, Brave, or Firefox. The documentation site is the only hosted component.",
         ],
         bullets: [
           "Node.js 22 or newer runs the backend.",
-          "Chrome, Edge, or another compatible Chromium browser loads the unpacked extension.",
+          "Chrome and Brave share the Chrome Web Store package, Edge uses the same Chromium build through Edge Add-ons, and Firefox uses its own package.",
           "The daemon binds to 127.0.0.1 by default and authenticates the extension through Native Messaging.",
         ],
       },
       {
         heading: "Before the first action",
         paragraphs: [
-          "Run setup, load the exact extension directory printed by the installer, and grant only the site you intend to automate from the extension popup. Conduit starts with browser.read only and asks on first-use domains. Per-site access is the recommended default; an operator may explicitly choose Allow all sites for a local workflow, but that Chromium grant never changes daemon policy.",
+          "Install the backend first, install the extension from the browser store second, and add the Conduit SKILL.md to your AI harness third. Grant only the site you intend to automate from the extension popup. Conduit starts with browser.read only and asks on first-use domains. Per-site access is the recommended default; an operator may explicitly choose Allow all sites for a local workflow, but that browser grant never changes daemon policy.",
         ],
         code: "conduit setup\nconduit doctor\nconduit browser tabs",
         note: "Conduit is pre-1.0. Use a disposable browser profile and non-sensitive test pages while evaluating it.",
@@ -48,27 +48,35 @@ export const docs: DocPage[] = [
       "Install a checksummed release without administrator access, or build all repositories from source.",
     blocks: [
       {
-        heading: "Windows",
+        heading: "1. Install the backend on Windows",
         paragraphs: [
-          "Run in PowerShell as your normal user. The installer resolves the newest backend and standalone extension releases independently, verifies each published checksum, and does not install Node.js or system packages.",
+          "Run in PowerShell as your normal user. The installer downloads and verifies only the backend, registers Native Messaging, and does not install a browser extension, Node.js, or system packages.",
         ],
         code: "irm https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.ps1 | iex",
       },
       {
-        heading: "macOS and Linux",
+        heading: "1. Install the backend on macOS or Linux",
         code: "curl -fsSL https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.sh | bash",
       },
       {
-        heading: "Reproducible version",
+        heading: "Reproducible backend version",
         paragraphs: [
-          "By default, the installer selects the newest backend and extension releases separately. Pin both release streams when reproducibility matters.",
+          "By default, the installer selects the newest backend release. Pin it when reproducibility matters.",
         ],
-        code: "./install.sh --version v0.1.1 --extension-version v0.1.2\n./install.ps1 -Version v0.1.1 -ExtensionVersion v0.1.2",
+        code: "./install.sh --version v0.1.2\n./install.ps1 -Version v0.1.2",
       },
       {
-        heading: "Agent Skill",
+        heading: "2. Install the browser extension",
         paragraphs: [
-          "After installation, the scripts print the exact extension directory plus portable Conduit skill links for Agent Skills-compatible AI harnesses. Install the complete directory when possible so future sibling references remain available.",
+          "Install from the store after the backend is ready. Chrome and Brave share the Chrome Web Store build. Edge uses the same Chromium source package through Microsoft Edge Add-ons. Firefox has a separate build because its background and advanced-interaction APIs differ.",
+          "Until reviewed listing URLs are final, use the store search links below. A newly assigned Chrome or Edge item ID must be registered once with conduit extension trust <extension-id>, then the browser must be restarted.",
+        ],
+        code: "Chrome + Brave: https://chromewebstore.google.com/search/conduit\nEdge: https://microsoftedge.microsoft.com/addons/search/conduit\nFirefox: https://addons.mozilla.org/firefox/search/?q=Conduit",
+      },
+      {
+        heading: "3. Install SKILL.md",
+        paragraphs: [
+          "Add the portable Conduit skill to any Agent Skills-compatible AI harness. Install the complete directory when possible so future sibling references remain available.",
         ],
         code: "https://github.com/err0rgod/skills/tree/main/conduit\nhttps://raw.githubusercontent.com/err0rgod/skills/main/conduit/SKILL.md",
       },
@@ -85,18 +93,18 @@ export const docs: DocPage[] = [
       "Connect the extension, allow a test origin, and exercise the CLI-to-browser path.",
     blocks: [
       {
-        heading: "1. Load the extension",
+        heading: "1. Confirm the three installations",
         bullets: [
-          "Open chrome://extensions or edge://extensions.",
-          "Enable Developer mode and choose Load unpacked.",
-          "Select the versioned extension directory printed by conduit setup.",
+          "The backend installer completed and conduit doctor can run.",
+          "Conduit Extension is installed from Chrome Web Store, Edge Add-ons, or Firefox Add-ons.",
+          "The Conduit skill directory or SKILL.md is installed in the AI harness.",
           "Pin the Conduit extension so its status is always visible.",
         ],
       },
       {
         heading: "2. Grant a test site",
         paragraphs: [
-          "Open https://example.com, open the Conduit popup, and choose Allow this site. Accept Chromium's native permission prompt. This grant is separate from the daemon domain policy. The popup also offers an explicit Allow all sites action for local workflows; it requests only http://*/* and https://*/* after the user's click.",
+          "Open https://example.com, open the Conduit popup, and choose Allow this site. Accept the browser's native permission prompt. This grant is separate from the daemon domain policy. The popup also offers an explicit Allow all sites action for local workflows; it requests only http://*/* and https://*/* after the user's click.",
         ],
       },
       {
@@ -148,7 +156,7 @@ export const docs: DocPage[] = [
       {
         heading: "Site access",
         paragraphs: [
-          "The production manifest declares HTTP and HTTPS origins as optional host permissions. Inspecting, scripting, or capturing a page fails until Chromium grants the origin. Per-site access is the normal path. The popup can also request exactly http://*/* and https://*/* through a user click and Chromium's native permission prompt; Conduit does not persist a second broad-access flag, and Chromium owns the resulting permission state.",
+          "The production manifests declare HTTP and HTTPS origins as optional host permissions. Inspecting, scripting, or capturing a page fails until the browser grants the origin. Per-site access is the normal path. The popup can also request exactly http://*/* and https://*/* through a user click and the browser's native permission prompt; Conduit does not persist a second broad-access flag, and the browser owns the resulting permission state.",
         ],
         bullets: [
           "Allow this site requests only the current origin.",
@@ -161,7 +169,7 @@ export const docs: DocPage[] = [
       {
         heading: "Browser APIs",
         paragraphs: [
-          "Core actions use tabs and scripting. Debugger and downloads are optional permissions. The published extension is v0.1.2; broad host access remains optional, user-initiated, and independent from daemon authorization.",
+          "Core actions use tabs and scripting. The published extension is v0.1.3. One key-free Chromium store package serves Chrome, Edge, and Brave. Firefox has a separate package and omits Chromium's debugger permission, so hover, physical key input, and approved file uploads are unavailable there. Broad host access remains optional, user-initiated, and independent from daemon authorization.",
         ],
       },
     ],
@@ -327,7 +335,7 @@ export const docs: DocPage[] = [
       {
         heading: "Two independent gates",
         paragraphs: [
-          "A daemon capability grant does not grant Chromium site access, and a Chromium site grant does not authorize an action at the daemon. Both boundaries must allow the request.",
+          "A daemon capability grant does not grant browser site access, and a browser site grant does not authorize an action at the daemon. Both boundaries must allow the request.",
         ],
       },
     ],
@@ -395,7 +403,7 @@ export const docs: DocPage[] = [
           "Random local authentication and an authenticated extension connection.",
           "Runtime protocol and configuration validation.",
           "Deny-by-default capabilities, domain checks, and expiring confirmations.",
-          "Separate Chromium host grants: per-site by default, with an explicit popup-only all-sites request for local workflows.",
+          "Separate browser host grants: per-site by default, with an explicit popup-only all-sites request for local workflows.",
           "The local-only allow-all domain mode still denies blocked domains, invalid or non-HTTP(S) URLs, localhost without its opt-in, and private networks without their opt-in.",
           "Bounded payloads, queues, timeouts, sessions, and authentication attempts.",
           "Canonical upload allowlists and structured audit redaction.",
@@ -457,7 +465,7 @@ export const docs: DocPage[] = [
           "remote: enabled, TLS key/certificate paths, sessionTimeoutMs",
           "security: permissions, domain mode/lists, localhost/private-network policy, upload allowlist and size limit",
           "logging: level, maximum audit size, retention days",
-          "browser: screenshot directory and download behavior",
+          "browser: screenshot directory, download behavior, and trusted Chromium/Firefox extension IDs",
         ],
       },
       {
@@ -506,16 +514,17 @@ export const docs: DocPage[] = [
         heading: "Extension is disconnected",
         bullets: [
           "Run conduit setup again to repair the current-user Native Messaging registration.",
-          "Confirm the daemon is running and reload the unpacked extension.",
-          "Confirm the extension ID is jkdlmcpkgkooilffjegfjmkanoelbmbl.",
-          "Use the exact extension directory printed by setup; do not load the repository source directory.",
+          "Confirm the daemon is running and restart the browser after installing the extension.",
+          "For Chrome or Edge, copy the store item ID and run conduit extension trust <extension-id> once.",
+          "The ID jkdlmcpkgkooilffjegfjmkanoelbmbl applies only to the unpacked development build.",
+          "Firefox uses the fixed add-on ID conduit@err0rgod.github.io.",
         ],
       },
       {
         heading: "Permission or domain denied",
         bullets: [
           "Open the extension popup on the target tab and allow that origin. Per-site access is the recommended first fix.",
-          "If the operator deliberately chose broad local access, use Allow all sites in the popup and accept Chromium's prompt; denial falls back to per-site authorization.",
+          "If the operator deliberately chose broad local access, use Allow all sites in the popup and accept the browser's prompt; denial falls back to per-site authorization.",
           "Check conduit permissions and the configured domain mode. allow-all still cannot bypass blocked domains or network guards.",
           "Grant only the missing daemon capability, then restart.",
           "Localhost and private networks require separate policy flags.",
@@ -590,11 +599,11 @@ export const docs: DocPage[] = [
       {
         heading: "Working today",
         bullets: [
-          "Checksummed backend and extension GitHub Release artifacts.",
+          "Checksummed backend and multi-browser extension GitHub Release artifacts.",
           "No-admin setup and Native Messaging auto-discovery.",
           "Authenticated CLI/MCP-to-daemon-to-extension vertical slice.",
           "Tabs, navigation, snapshots, interactions, screenshots, allowlisted upload, download observation, and opt-in all-sites host controls.",
-          "Independent per-site Chromium access and local-only backend allow-all domain mode; both preserve their enforcement guards.",
+          "Independent per-site browser access and local-only backend allow-all domain mode; both preserve their enforcement guards.",
           "Domain/capability policy, confirmations, pairing identity, redacted audits, and cross-platform CI.",
         ],
       },
@@ -604,7 +613,7 @@ export const docs: DocPage[] = [
           "Complete confirmation and audit management UI in the extension.",
           "Improve iframe, shadow DOM, popup, dialog, and dynamic-page coverage.",
           "Exercise remote networking on a documented private-network deployment.",
-          "Publish the backend package and signed browser-store extension after release processes mature.",
+          "Complete Chrome Web Store, Edge Add-ons, and Firefox Add-ons review and replace search links with final listing URLs.",
           "Define a compatibility policy and supported release line.",
         ],
       },
@@ -617,11 +626,12 @@ export const docs: DocPage[] = [
       "Review the public release history and security-relevant behavior changes.",
     blocks: [
       {
-        heading: "Unreleased",
+        heading: "v0.1.2 backend · v0.1.3 extension · 23 August 2026",
         bullets: [
-          "The extension v0.1.2 release adds explicit Allow all sites and Revoke all sites popup controls for http://*/* and https://*/*.",
+          "The extension adds a key-free Chromium store package for Chrome, Edge, and Brave plus a Firefox-specific package.",
           "The backend adds the opt-in local-only security.domainMode allow-all value; default ask behavior and hard domain/network guards remain unchanged.",
-          "Installers now fetch and verify the latest standalone extension release independently, support extension-version pinning, and print portable Conduit Agent Skill links.",
+          "Native Messaging supports explicitly trusted Chrome, Edge, Brave, Chromium, and Firefox identities.",
+          "Installers now install only the backend, then direct users to a browser store and the portable Conduit Agent Skill.",
         ],
       },
       {
@@ -629,7 +639,7 @@ export const docs: DocPage[] = [
         bullets: [
           "Production extension changed from broad host access to explicit per-origin permission prompts.",
           "Page inspection, interaction, and screenshots now reject ungranted origins.",
-          "Backend E2E validates a fresh Native Messaging connection with the standalone extension.",
+          "Backend E2E validates a fresh Native Messaging connection with the standalone extension repository.",
           "Release builds pin the compatible extension to an immutable validated commit.",
         ],
       },
