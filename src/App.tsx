@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Docs from "./pages/Docs";
+import Privacy from "./pages/Privacy";
 import "./index.css";
 
 function Navigation() {
@@ -40,6 +41,12 @@ function Navigation() {
         >
           Docs
         </Link>
+        <Link
+          to="/privacy"
+          style={{ color: path === "/privacy" ? "#fff" : "#888" }}
+        >
+          Privacy
+        </Link>
         <a href="https://github.com/err0rgod/conduit/releases">Releases</a>
         <a href="https://github.com/err0rgod/conduit">GitHub</a>
       </div>
@@ -57,6 +64,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/docs" element={<Docs />} />
           <Route path="/docs/:slug" element={<Docs />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
 
         <footer>
@@ -66,6 +74,7 @@ function App() {
           <div className="footer-links">
             <Link to="/">Platform</Link>
             <Link to="/docs/getting-started">Docs</Link>
+            <Link to="/privacy">Privacy</Link>
             <a href="https://github.com/err0rgod/conduit">GitHub</a>
           </div>
         </footer>

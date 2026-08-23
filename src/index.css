@@ -409,6 +409,35 @@ header {
   min-width: 0;
   padding-bottom: 40px;
 }
+.privacy-page {
+  display: flex;
+  justify-content: center;
+}
+.privacy-page .docs-article {
+  width: min(100%, 780px);
+}
+.privacy-effective {
+  margin: -22px 0 42px;
+  color: #b5b5b5;
+}
+.privacy-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 8px 0 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.privacy-contact-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #b5b5b5;
+  text-underline-offset: 4px;
+}
+.privacy-contact-links a:hover {
+  color: #fff;
+}
 .docs-kicker {
   margin-bottom: 13px;
 }
