@@ -21,13 +21,13 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="eyebrow">
-          <span className="status-dot" /> backend v0.1.1 · extension v0.1.2
+          <span className="status-dot" /> backend v0.1.2 · extension v0.1.3
         </div>
         <h1>Connect any AI agent to your browser securely.</h1>
         <p>
           Conduit is a local browser-control bridge: one authenticated daemon,
-          one least-privilege Chromium extension, and typed tools for MCP and
-          CLI clients.
+          one least-privilege browser extension, and typed tools for MCP and CLI
+          clients.
         </p>
         <div className="hero-actions">
           <button
@@ -109,8 +109,9 @@ export default function Home() {
             Conduit cloud or public relay.
           </Feature>
           <Feature title="Per-site browser access">
-            The extension asks Chromium for the current origin. Users can revoke
-            it from the same popup or explicitly opt into all HTTP/HTTPS sites.
+            The extension asks the browser for the current origin. Users can
+            revoke it from the same popup or explicitly opt into all HTTP/HTTPS
+            sites.
           </Feature>
           <Feature title="Structured snapshots">
             Accessibility-oriented page data and short-lived element IDs reduce
@@ -136,8 +137,8 @@ export default function Home() {
           <div className="eyebrow">One-minute setup</div>
           <h2>The backend installs. The browser stays yours.</h2>
           <p className="subtitle">
-            Setup registers a current-user Native Messaging host, starts the
-            daemon, and prints the exact extension directory to load. No
+            Setup registers current-user Native Messaging hosts and starts the
+            daemon. The extension then comes from your browser store. No
             administrator access is required.
           </p>
           <Link className="text-link" to="/docs/quick-start">
@@ -149,31 +150,28 @@ export default function Home() {
             <span>1</span>
             <div>
               <strong>Run the installer</strong>
-              <p>
-                Downloads and verifies the newest backend and extension
-                releases.
-              </p>
+              <p>Downloads, verifies, and configures the local backend.</p>
             </div>
           </li>
           <li>
             <span>2</span>
             <div>
-              <strong>Load unpacked</strong>
-              <p>Select the versioned path printed by setup.</p>
+              <strong>Install the extension</strong>
+              <p>Use Chrome Web Store, Edge Add-ons, or Firefox Add-ons.</p>
             </div>
           </li>
           <li>
             <span>3</span>
             <div>
-              <strong>Allow one site</strong>
-              <p>Use the popup on a non-sensitive test page.</p>
+              <strong>Install SKILL.md</strong>
+              <p>Add the Conduit skill directory to your AI harness.</p>
             </div>
           </li>
           <li>
             <span>4</span>
             <div>
-              <strong>Connect an agent</strong>
-              <p>Launch conduit mcp or use direct CLI commands.</p>
+              <strong>Allow one site</strong>
+              <p>Use the popup on a non-sensitive test page, then connect.</p>
             </div>
           </li>
         </ol>
@@ -194,9 +192,9 @@ export default function Home() {
           </Link>
           <a
             className="button secondary"
-            href="https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.2"
+            href="https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3"
           >
-            Extension v0.1.2
+            Extension v0.1.3
           </a>
         </div>
       </section>

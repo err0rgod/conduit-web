@@ -50,7 +50,7 @@ describe("documentation catalog", () => {
     expect(findDoc("missing")).toBeUndefined();
   });
 
-  it("documents broad Chromium access and daemon allow-all as separate opt-ins", () => {
+  it("documents broad browser access and daemon allow-all as separate opt-ins", () => {
     const extension = JSON.stringify(findDoc("browser-extension"));
     const permissions = JSON.stringify(findDoc("permissions"));
     const domains = JSON.stringify(findDoc("domain-policies"));
@@ -59,7 +59,7 @@ describe("documentation catalog", () => {
     expect(extension).toContain("http://*/*");
     expect(extension).toContain("https://*/*");
     expect(extension).toContain("user click");
-    expect(extension).toContain("Chromium owns");
+    expect(extension).toContain("browser owns");
     expect(permissions).toContain("Both boundaries must allow");
 
     expect(domains).toContain("ask is the default");
@@ -69,14 +69,22 @@ describe("documentation catalog", () => {
     expect(configuration).toContain("not hot-reloaded");
   });
 
-  it("documents independent extension installation and portable skill links", () => {
+  it("documents backend, store extension, and skill installation in order", () => {
     const installation = JSON.stringify(findDoc("installation"));
 
-    expect(installation).toContain(
-      "newest backend and standalone extension releases",
+    const backendIndex = installation.indexOf("1. Install the backend");
+    const extensionIndex = installation.indexOf(
+      "2. Install the browser extension",
     );
-    expect(installation).toContain("--extension-version");
-    expect(installation).toContain("-ExtensionVersion");
+    const skillIndex = installation.indexOf("3. Install SKILL.md");
+    expect(backendIndex).toBeGreaterThanOrEqual(0);
+    expect(extensionIndex).toBeGreaterThan(backendIndex);
+    expect(skillIndex).toBeGreaterThan(extensionIndex);
+    expect(installation).toContain("chromewebstore.google.com");
+    expect(installation).toContain("microsoftedge.microsoft.com/addons");
+    expect(installation).toContain("addons.mozilla.org");
+    expect(installation).toContain("conduit extension trust");
+    expect(installation).not.toContain("--extension-version");
     expect(installation).toContain(
       "https://github.com/err0rgod/skills/tree/main/conduit",
     );
