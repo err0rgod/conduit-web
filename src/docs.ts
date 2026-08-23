@@ -50,7 +50,7 @@ export const docs: DocPage[] = [
       {
         heading: "Windows",
         paragraphs: [
-          "Run in PowerShell as your normal user. The installer does not install Node.js or system packages.",
+          "Run in PowerShell as your normal user. The installer resolves the newest backend and standalone extension releases independently, verifies each published checksum, and does not install Node.js or system packages.",
         ],
         code: "irm https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.ps1 | iex",
       },
@@ -61,9 +61,16 @@ export const docs: DocPage[] = [
       {
         heading: "Reproducible version",
         paragraphs: [
-          "Pin the current security patch instead of resolving latest.",
+          "By default, the installer selects the newest backend and extension releases separately. Pin both release streams when reproducibility matters.",
         ],
-        code: "./install.sh --version v0.1.1\n./install.ps1 -Version v0.1.1",
+        code: "./install.sh --version v0.1.1 --extension-version v0.1.2\n./install.ps1 -Version v0.1.1 -ExtensionVersion v0.1.2",
+      },
+      {
+        heading: "Agent Skill",
+        paragraphs: [
+          "After installation, the scripts print the exact extension directory plus portable Conduit skill links for Agent Skills-compatible AI harnesses. Install the complete directory when possible so future sibling references remain available.",
+        ],
+        code: "https://github.com/err0rgod/skills/tree/main/conduit\nhttps://raw.githubusercontent.com/err0rgod/skills/main/conduit/SKILL.md",
       },
       {
         heading: "From source",
@@ -614,6 +621,7 @@ export const docs: DocPage[] = [
         bullets: [
           "The extension v0.1.2 release adds explicit Allow all sites and Revoke all sites popup controls for http://*/* and https://*/*.",
           "The backend adds the opt-in local-only security.domainMode allow-all value; default ask behavior and hard domain/network guards remain unchanged.",
+          "Installers now fetch and verify the latest standalone extension release independently, support extension-version pinning, and print portable Conduit Agent Skill links.",
         ],
       },
       {

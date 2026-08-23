@@ -68,4 +68,20 @@ describe("documentation catalog", () => {
     expect(configuration).toContain("remote.enabled is true");
     expect(configuration).toContain("not hot-reloaded");
   });
+
+  it("documents independent extension installation and portable skill links", () => {
+    const installation = JSON.stringify(findDoc("installation"));
+
+    expect(installation).toContain(
+      "newest backend and standalone extension releases",
+    );
+    expect(installation).toContain("--extension-version");
+    expect(installation).toContain("-ExtensionVersion");
+    expect(installation).toContain(
+      "https://github.com/err0rgod/skills/tree/main/conduit",
+    );
+    expect(installation).toContain(
+      "https://raw.githubusercontent.com/err0rgod/skills/main/conduit/SKILL.md",
+    );
+  });
 });
