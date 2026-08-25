@@ -214,6 +214,61 @@ header {
   color: #fff;
 }
 
+.install-steps-section {
+  padding-top: 42px;
+  border-top: 1px solid var(--border);
+}
+.install-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.install-steps li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 16px;
+  min-height: 260px;
+  padding: 26px 24px;
+  border-right: 1px solid var(--border);
+}
+.install-steps li:first-child {
+  padding-left: 0;
+}
+.install-steps li:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+.step-number {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #3a3a3a;
+  border-radius: 50%;
+  color: #bbb;
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+.install-steps h3 {
+  margin: 1px 0 10px;
+  font-size: 1.05rem;
+}
+.install-steps p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.store-button {
+  min-height: 40px;
+  padding: 0 13px;
+  font-size: 0.84rem;
+}
+
 .security-banner,
 .warning-panel {
   display: flex;
@@ -575,6 +630,20 @@ footer {
   .split-section {
     grid-template-columns: 1fr;
     gap: 38px;
+  }
+  .install-steps {
+    grid-template-columns: 1fr;
+  }
+  .install-steps li,
+  .install-steps li:first-child,
+  .install-steps li:last-child {
+    min-height: 0;
+    padding: 24px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .install-steps li:last-child {
+    border-bottom: 0;
   }
   .docs-layout {
     grid-template-columns: 180px minmax(0, 1fr);

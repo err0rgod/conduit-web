@@ -1,12 +1,24 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, Copy, ShieldCheck, Terminal } from "lucide-react";
+import {
+  Check,
+  Copy,
+  ExternalLink,
+  ShieldCheck,
+  Store,
+  Terminal,
+} from "lucide-react";
 
 const installCommands = {
   windows:
     "irm https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.ps1 | iex",
   unix: "curl -fsSL https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.sh | bash",
 };
+
+const chromeWebStoreUrl =
+  "https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc";
+const skillDirectoryUrl =
+  "https://github.com/err0rgod/skills/tree/main/conduit";
 
 export default function Home() {
   const [copied, setCopied] = useState<string>();
@@ -21,7 +33,8 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="eyebrow">
-          <span className="status-dot" /> backend v0.1.3 · extension v0.1.3
+          <span className="status-dot" /> Chrome extension published · backend
+          v0.1.3
         </div>
         <h1>Connect any AI agent to your browser securely.</h1>
         <p>
@@ -44,11 +57,9 @@ export default function Home() {
           <Link to="/docs/getting-started" className="button secondary">
             Read the docs
           </Link>
-          <a
-            className="button ghost"
-            href="https://github.com/err0rgod/conduit"
-          >
-            GitHub
+          <a className="button secondary" href={chromeWebStoreUrl}>
+            <Store size={18} />
+            Get the Chrome extension
           </a>
         </div>
 
@@ -64,6 +75,58 @@ export default function Home() {
           copied={copied === "unix"}
           onCopy={() => copy("unix", installCommands.unix)}
         />
+      </section>
+
+      <section className="section install-steps-section">
+        <div className="eyebrow">Start here</div>
+        <h2>Install Conduit in 3 steps.</h2>
+        <p className="subtitle">
+          Install the local backend first, add the published browser extension,
+          then give your AI harness the Conduit skill.
+        </p>
+        <ol className="install-steps">
+          <li>
+            <span className="step-number">1</span>
+            <div>
+              <h3>Install the backend</h3>
+              <p>
+                Run the Windows or macOS/Linux command above. The script
+                downloads, verifies, configures, and starts Conduit locally.
+              </p>
+              <Link className="text-link" to="/docs/installation">
+                Backend installation details →
+              </Link>
+            </div>
+          </li>
+          <li>
+            <span className="step-number">2</span>
+            <div>
+              <h3>Install the published extension</h3>
+              <p>
+                Conduit Extension is live on the Chrome Web Store for Chrome and
+                Brave. Browser-store updates are delivered automatically.
+              </p>
+              <a className="button store-button" href={chromeWebStoreUrl}>
+                <Store size={17} />
+                Open Chrome Web Store
+                <ExternalLink size={15} />
+              </a>
+            </div>
+          </li>
+          <li>
+            <span className="step-number">3</span>
+            <div>
+              <h3>Install SKILL.md</h3>
+              <p>
+                Add the Conduit skill directory to any Agent Skills-compatible
+                AI harness.
+              </p>
+              <a className="text-link" href={skillDirectoryUrl}>
+                Open the Conduit skill directory →
+              </a>
+            </div>
+          </li>
+        </ol>
       </section>
 
       <section className="security-banner">
@@ -132,51 +195,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section split-section">
-        <div>
-          <div className="eyebrow">One-minute setup</div>
-          <h2>The backend installs. The browser stays yours.</h2>
-          <p className="subtitle">
-            Setup registers current-user Native Messaging hosts and starts the
-            daemon. The extension then comes from your browser store. No
-            administrator access is required.
-          </p>
-          <Link className="text-link" to="/docs/quick-start">
-            Follow the quick start →
-          </Link>
-        </div>
-        <ol className="setup-list">
-          <li>
-            <span>1</span>
-            <div>
-              <strong>Run the installer</strong>
-              <p>Downloads, verifies, and configures the local backend.</p>
-            </div>
-          </li>
-          <li>
-            <span>2</span>
-            <div>
-              <strong>Install the extension</strong>
-              <p>Use Chrome Web Store, Edge Add-ons, or Firefox Add-ons.</p>
-            </div>
-          </li>
-          <li>
-            <span>3</span>
-            <div>
-              <strong>Install SKILL.md</strong>
-              <p>Add the Conduit skill directory to your AI harness.</p>
-            </div>
-          </li>
-          <li>
-            <span>4</span>
-            <div>
-              <strong>Allow one site</strong>
-              <p>Use the popup on a non-sensitive test page, then connect.</p>
-            </div>
-          </li>
-        </ol>
-      </section>
-
       <section className="cta">
         <div>
           <div className="eyebrow">Project status</div>
@@ -190,11 +208,9 @@ export default function Home() {
           <Link className="button" to="/docs/roadmap">
             View roadmap
           </Link>
-          <a
-            className="button secondary"
-            href="https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3"
-          >
-            Extension v0.1.3
+          <a className="button secondary" href={chromeWebStoreUrl}>
+            <Store size={18} />
+            Chrome Web Store
           </a>
         </div>
       </section>
