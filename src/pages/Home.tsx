@@ -21,7 +21,7 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="eyebrow">
-          <span className="status-dot" /> backend v0.1.2 · extension v0.1.3
+          <span className="status-dot" /> backend v0.1.3 · extension v0.1.3
         </div>
         <h1>Connect any AI agent to your browser securely.</h1>
         <p>

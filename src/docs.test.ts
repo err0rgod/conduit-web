@@ -81,6 +81,7 @@ describe("documentation catalog", () => {
     expect(extensionIndex).toBeGreaterThan(backendIndex);
     expect(skillIndex).toBeGreaterThan(extensionIndex);
     expect(installation).toContain("chromewebstore.google.com");
+    expect(installation).toContain("gjhipjgiapijcdnflldnoenafeegmfpc");
     expect(installation).toContain("microsoftedge.microsoft.com/addons");
     expect(installation).toContain("addons.mozilla.org");
     expect(installation).toContain("conduit extension trust");

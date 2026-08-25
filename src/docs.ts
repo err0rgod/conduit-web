@@ -63,15 +63,15 @@ export const docs: DocPage[] = [
         paragraphs: [
           "By default, the installer selects the newest backend release. Pin it when reproducibility matters.",
         ],
-        code: "./install.sh --version v0.1.2\n./install.ps1 -Version v0.1.2",
+        code: "./install.sh --version v0.1.3\n./install.ps1 -Version v0.1.3",
       },
       {
         heading: "2. Install the browser extension",
         paragraphs: [
           "Install from the store after the backend is ready. Chrome and Brave share the Chrome Web Store build. Edge uses the same Chromium source package through Microsoft Edge Add-ons. Firefox has a separate build because its background and advanced-interaction APIs differ.",
-          "Until reviewed listing URLs are final, use the store search links below. A newly assigned Chrome or Edge item ID must be registered once with conduit extension trust <extension-id>, then the browser must be restarted.",
+          "The published Chrome Web Store listing is ready for Chrome and Brave. Edge uses the same Chromium package through Microsoft Edge Add-ons, while Firefox has a separate build. A future Edge or other Chromium store ID must be registered once with conduit extension trust <extension-id>, then the browser must be restarted.",
         ],
-        code: "Chrome + Brave: https://chromewebstore.google.com/search/conduit\nEdge: https://microsoftedge.microsoft.com/addons/search/conduit\nFirefox: https://addons.mozilla.org/firefox/search/?q=Conduit",
+        code: "Chrome + Brave: https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc\nEdge: https://microsoftedge.microsoft.com/addons/search/conduit\nFirefox: https://addons.mozilla.org/firefox/search/?q=Conduit",
       },
       {
         heading: "3. Install SKILL.md",
@@ -515,7 +515,7 @@ export const docs: DocPage[] = [
         bullets: [
           "Run conduit setup again to repair the current-user Native Messaging registration.",
           "Confirm the daemon is running and restart the browser after installing the extension.",
-          "For Chrome or Edge, copy the store item ID and run conduit extension trust <extension-id> once.",
+          "The published Chrome Web Store ID gjhipjgiapijcdnflldnoenafeegmfpc is trusted by default. For Edge or another Chromium store, copy its item ID and run conduit extension trust <extension-id> once.",
           "The ID jkdlmcpkgkooilffjegfjmkanoelbmbl applies only to the unpacked development build.",
           "Firefox uses the fixed add-on ID conduit@err0rgod.github.io.",
         ],
@@ -613,7 +613,7 @@ export const docs: DocPage[] = [
           "Complete confirmation and audit management UI in the extension.",
           "Improve iframe, shadow DOM, popup, dialog, and dynamic-page coverage.",
           "Exercise remote networking on a documented private-network deployment.",
-          "Complete Chrome Web Store, Edge Add-ons, and Firefox Add-ons review and replace search links with final listing URLs.",
+          "Complete Edge Add-ons and Firefox Add-ons review and replace their search links with final listing URLs.",
           "Define a compatibility policy and supported release line.",
         ],
       },
@@ -625,6 +625,14 @@ export const docs: DocPage[] = [
     summary:
       "Review the public release history and security-relevant behavior changes.",
     blocks: [
+      {
+        heading: "v0.1.3 backend · 25 August 2026",
+        bullets: [
+          "The backend now trusts the published Chrome Web Store ID gjhipjgiapijcdnflldnoenafeegmfpc alongside the unpacked development ID.",
+          "Installers and documentation link directly to the reviewed Chrome and Brave listing.",
+          "Running conduit setup migrates existing development-only Native Messaging configurations to include the official Chrome identity.",
+        ],
+      },
       {
         heading: "v0.1.2 backend · v0.1.3 extension · 23 August 2026",
         bullets: [
