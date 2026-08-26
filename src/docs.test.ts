@@ -69,7 +69,7 @@ describe("documentation catalog", () => {
     expect(configuration).toContain("not hot-reloaded");
   });
 
-  it("documents backend, store extension, and skill installation in order", () => {
+  it("documents backend, GitHub extension fallback, and skill installation in order", () => {
     const installation = JSON.stringify(findDoc("installation"));
 
     const backendIndex = installation.indexOf("1. Install the backend");
@@ -80,10 +80,10 @@ describe("documentation catalog", () => {
     expect(backendIndex).toBeGreaterThanOrEqual(0);
     expect(extensionIndex).toBeGreaterThan(backendIndex);
     expect(skillIndex).toBeGreaterThan(extensionIndex);
-    expect(installation).toContain("chromewebstore.google.com");
-    expect(installation).toContain("gjhipjgiapijcdnflldnoenafeegmfpc");
-    expect(installation).toContain("microsoftedge.microsoft.com/addons");
-    expect(installation).toContain("addons.mozilla.org");
+    expect(installation).toContain("conduit-extension-unpacked-v0.1.3.zip");
+    expect(installation).toContain("chrome://extensions");
+    expect(installation).toContain("Developer mode");
+    expect(installation).toContain("jkdlmcpkgkooilffjegfjmkanoelbmbl");
     expect(installation).toContain("conduit extension trust");
     expect(installation).not.toContain("--extension-version");
     expect(installation).toContain(

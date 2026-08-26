@@ -8,22 +8,25 @@ const home = readFileSync(
 );
 
 describe("home page installation path", () => {
-  it("shows the three required steps in order", () => {
+  it("shows the four required steps in order", () => {
     const backend = home.indexOf("Install the backend");
-    const extension = home.indexOf("Install the published extension");
+    const extension = home.indexOf("Download the extension from GitHub");
+    const load = home.indexOf("Load it in Chrome");
     const skill = home.indexOf("Install SKILL.md");
 
     expect(backend).toBeGreaterThanOrEqual(0);
     expect(extension).toBeGreaterThan(backend);
-    expect(skill).toBeGreaterThan(extension);
+    expect(load).toBeGreaterThan(extension);
+    expect(skill).toBeGreaterThan(load);
   });
 
-  it("links directly to the published extension and public skill", () => {
-    expect(home).toContain("gjhipjgiapijcdnflldnoenafeegmfpc");
-    expect(home).toContain(
-      "chromewebstore.google.com/detail/conduit-extension",
-    );
+  it("links directly to the GitHub extension fallback and public skill", () => {
+    expect(home).toContain("conduit-extension-unpacked-v0.1.3.zip");
+    expect(home).toContain("Chrome Web Store temporarily");
+    expect(home).toContain("chrome://extensions");
     expect(home).toContain("github.com/err0rgod/skills/tree/main/conduit");
-    expect(home).toContain("Chrome extension published");
+    expect(home).toContain(
+      "The Chrome Web Store listing is temporarily unavailable",
+    );
   });
 });

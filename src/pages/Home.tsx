@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
+  AlertTriangle,
   Check,
   Copy,
+  Download,
   ExternalLink,
   ShieldCheck,
-  Store,
   Terminal,
 } from "lucide-react";
 
@@ -15,8 +16,10 @@ const installCommands = {
   unix: "curl -fsSL https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.sh | bash",
 };
 
-const chromeWebStoreUrl =
-  "https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc";
+const extensionReleaseUrl =
+  "https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3";
+const extensionArchiveUrl =
+  "https://github.com/err0rgod/conduit-extension/releases/download/v0.1.3/conduit-extension-unpacked-v0.1.3.zip";
 const skillDirectoryUrl =
   "https://github.com/err0rgod/skills/tree/main/conduit";
 
@@ -33,8 +36,8 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="eyebrow">
-          <span className="status-dot" /> Chrome extension published · backend
-          v0.1.3
+          <span className="status-dot" /> Chrome Web Store temporarily
+          unavailable · backend v0.1.3
         </div>
         <h1>Connect any AI agent to your browser securely.</h1>
         <p>
@@ -57,9 +60,9 @@ export default function Home() {
           <Link to="/docs/getting-started" className="button secondary">
             Read the docs
           </Link>
-          <a className="button secondary" href={chromeWebStoreUrl}>
-            <Store size={18} />
-            Get the Chrome extension
+          <a className="button secondary" href={extensionArchiveUrl}>
+            <Download size={18} />
+            Download Chrome extension
           </a>
         </div>
 
@@ -77,12 +80,30 @@ export default function Home() {
         />
       </section>
 
+      <section className="extension-status" role="status">
+        <AlertTriangle size={24} />
+        <div>
+          <strong>
+            The Chrome Web Store listing is temporarily unavailable.
+          </strong>
+          <p>
+            Until it returns, install the verified unpacked build from GitHub
+            and load it through Chrome Developer mode. The backend already
+            trusts this development build's extension identity.
+          </p>
+          <a className="text-link" href={extensionReleaseUrl}>
+            View the GitHub extension release →
+          </a>
+        </div>
+      </section>
+
       <section className="section install-steps-section">
         <div className="eyebrow">Start here</div>
-        <h2>Install Conduit in 3 steps.</h2>
+        <h2>Install Conduit in 4 steps.</h2>
         <p className="subtitle">
-          Install the local backend first, add the published browser extension,
-          then give your AI harness the Conduit skill.
+          Install the local backend, download the verified extension from
+          GitHub, load it in Chrome Developer mode, then give your AI harness
+          the skill.
         </p>
         <ol className="install-steps">
           <li>
@@ -101,20 +122,37 @@ export default function Home() {
           <li>
             <span className="step-number">2</span>
             <div>
-              <h3>Install the published extension</h3>
+              <h3>Download the extension from GitHub</h3>
               <p>
-                Conduit Extension is live on the Chrome Web Store for Chrome and
-                Brave. Browser-store updates are delivered automatically.
+                Download the unpacked ZIP from the Conduit Extension release. It
+                includes the stable development identity trusted by Conduit.
               </p>
-              <a className="button store-button" href={chromeWebStoreUrl}>
-                <Store size={17} />
-                Open Chrome Web Store
+              <a className="button store-button" href={extensionArchiveUrl}>
+                <Download size={17} />
+                Download unpacked ZIP
                 <ExternalLink size={15} />
               </a>
             </div>
           </li>
           <li>
             <span className="step-number">3</span>
+            <div>
+              <h3>Load it in Chrome</h3>
+              <p>
+                Extract the ZIP, open <code>chrome://extensions</code>, enable
+                Developer mode, choose Load unpacked, and select the folder
+                containing <code>manifest.json</code>.
+              </p>
+              <a
+                className="text-link"
+                href="https://github.com/err0rgod/conduit-extension#development"
+              >
+                See the Developer Mode instructions →
+              </a>
+            </div>
+          </li>
+          <li>
+            <span className="step-number">4</span>
             <div>
               <h3>Install SKILL.md</h3>
               <p>
@@ -208,9 +246,9 @@ export default function Home() {
           <Link className="button" to="/docs/roadmap">
             View roadmap
           </Link>
-          <a className="button secondary" href={chromeWebStoreUrl}>
-            <Store size={18} />
-            Chrome Web Store
+          <a className="button secondary" href={extensionArchiveUrl}>
+            <Download size={18} />
+            Download extension
           </a>
         </div>
       </section>
