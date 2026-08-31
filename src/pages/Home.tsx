@@ -20,6 +20,8 @@ const extensionReleaseUrl =
   "https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3";
 const extensionArchiveUrl =
   "https://github.com/err0rgod/conduit-extension/releases/download/v0.1.3/conduit-extension-unpacked-v0.1.3.zip";
+const firefoxAddonUrl =
+  "https://addons.mozilla.org/en-US/firefox/addon/conduit/";
 const skillDirectoryUrl =
   "https://github.com/err0rgod/skills/tree/main/conduit";
 
@@ -94,6 +96,10 @@ export default function Home() {
           <a className="text-link" href={extensionReleaseUrl}>
             View the GitHub extension release →
           </a>
+          <p className="extension-status-links">
+            Firefox users can install the approved add-on directly from Mozilla:{" "}
+            <a href={firefoxAddonUrl}>Firefox Add-ons →</a>
+          </p>
         </div>
       </section>
 
@@ -126,11 +132,16 @@ export default function Home() {
               <p>
                 Download the unpacked ZIP from the Conduit Extension release. It
                 includes the stable development identity trusted by Conduit.
+                Firefox users can install the approved add-on directly from
+                Mozilla instead.
               </p>
               <a className="button store-button" href={extensionArchiveUrl}>
                 <Download size={17} />
                 Download unpacked ZIP
                 <ExternalLink size={15} />
+              </a>
+              <a className="text-link browser-link" href={firefoxAddonUrl}>
+                Firefox Add-ons (approved) →
               </a>
             </div>
           </li>

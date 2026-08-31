@@ -27,7 +27,7 @@ export const docs: DocPage[] = [
         ],
         bullets: [
           "Node.js 22 or newer runs the backend.",
-          "Chrome and Brave share the Chromium build; while the Chrome Web Store listing is temporarily unavailable, use the verified unpacked GitHub archive. Edge uses the same Chromium build through Edge Add-ons, and Firefox uses its own package.",
+          "Chrome and Brave share the Chromium build; while the Chrome Web Store listing is temporarily unavailable, use the verified unpacked GitHub archive. Edge uses the same Chromium build through Edge Add-ons. Firefox has an approved Mozilla Add-ons listing and its own package.",
           "The daemon binds to 127.0.0.1 by default and authenticates the extension through Native Messaging.",
         ],
       },
@@ -68,10 +68,10 @@ export const docs: DocPage[] = [
       {
         heading: "2. Install the browser extension",
         paragraphs: [
-          "The Chrome Web Store listing is temporarily unavailable. Until it returns, download the verified unpacked build from the Conduit Extension GitHub release and load it through Chrome Developer mode. Chrome and Brave can use this Chromium build. Edge uses the same Chromium source package through Microsoft Edge Add-ons, and Firefox has a separate build because its background and advanced-interaction APIs differ.",
+          "The Chrome Web Store listing is temporarily unavailable. Until it returns, download the verified unpacked build from the Conduit Extension GitHub release and load it through Chrome Developer mode. Chrome and Brave can use this Chromium build. Edge uses the same Chromium source package through Microsoft Edge Add-ons. Firefox has an approved Mozilla Add-ons listing and a separate build because its background and advanced-interaction APIs differ.",
           "The unpacked archive preserves the deterministic development identity jkdlmcpkgkooilffjegfjmkanoelbmbl, which is already trusted by the backend. Do not use a store archive for Developer Mode loading: store-assigned IDs require explicit conduit extension trust <extension-id> configuration.",
         ],
-        code: "Download: https://github.com/err0rgod/conduit-extension/releases/download/v0.1.3/conduit-extension-unpacked-v0.1.3.zip\nRelease notes: https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3\nChrome: chrome://extensions",
+        code: "Download for Chrome/Brave: https://github.com/err0rgod/conduit-extension/releases/download/v0.1.3/conduit-extension-unpacked-v0.1.3.zip\nRelease notes: https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3\nChrome: chrome://extensions\nFirefox Add-ons (approved): https://addons.mozilla.org/en-US/firefox/addon/conduit/",
         note: "Chrome Developer mode: extract the ZIP, open chrome://extensions, enable Developer mode, choose Load unpacked, and select the extracted folder containing manifest.json. Keep the folder in place while using the extension.",
       },
       {
@@ -97,7 +97,7 @@ export const docs: DocPage[] = [
         heading: "1. Confirm the three installations",
         bullets: [
           "The backend installer completed and conduit doctor can run.",
-          "Conduit Extension is loaded from the Chrome Web Store when available, or from the verified GitHub unpacked archive through Chrome Developer mode while the store listing is unavailable.",
+          "Conduit Extension is loaded from the Chrome Web Store when available, or from the verified GitHub unpacked archive through Chrome Developer mode while the store listing is unavailable. Firefox users can install the approved Mozilla Add-ons listing directly.",
           "The Conduit skill directory or SKILL.md is installed in the AI harness.",
           "Pin the Conduit extension so its status is always visible.",
         ],
@@ -170,7 +170,7 @@ export const docs: DocPage[] = [
       {
         heading: "Browser APIs",
         paragraphs: [
-          "Core actions use tabs and scripting. The Chrome Web Store listing is temporarily unavailable; use the v0.1.3 unpacked GitHub release with Chrome Developer mode until it returns. One Chromium build serves Chrome, Edge, and Brave, while Firefox has a separate package and omits Chromium's debugger permission, so hover, physical key input, and approved file uploads are unavailable there. Broad host access remains optional, user-initiated, and independent from daemon authorization.",
+          "Core actions use tabs and scripting. The Chrome Web Store listing is temporarily unavailable; use the v0.1.3 unpacked GitHub release with Chrome Developer mode until it returns. One Chromium build serves Chrome, Edge, and Brave, while Firefox has an approved Mozilla Add-ons listing, a separate package, and omits Chromium's debugger permission, so hover, physical key input, and approved file uploads are unavailable there. Broad host access remains optional, user-initiated, and independent from daemon authorization.",
         ],
       },
     ],

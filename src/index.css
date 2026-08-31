@@ -283,8 +283,15 @@ header {
   margin: 4px 0 8px;
   color: #c6b68e;
 }
+.extension-status .extension-status-links {
+  margin-top: 14px;
+}
 .extension-status a {
   color: #f5d58a;
+}
+.browser-link {
+  display: block;
+  margin-top: 12px;
 }
 
 .security-banner,

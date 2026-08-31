@@ -84,6 +84,9 @@ describe("documentation catalog", () => {
     expect(installation).toContain("chrome://extensions");
     expect(installation).toContain("Developer mode");
     expect(installation).toContain("jkdlmcpkgkooilffjegfjmkanoelbmbl");
+    expect(installation).toContain(
+      "https://addons.mozilla.org/en-US/firefox/addon/conduit/",
+    );
     expect(installation).toContain("conduit extension trust");
     expect(installation).not.toContain("--extension-version");
     expect(installation).toContain(

@@ -24,6 +24,10 @@ describe("home page installation path", () => {
     expect(home).toContain("conduit-extension-unpacked-v0.1.3.zip");
     expect(home).toContain("Chrome Web Store temporarily");
     expect(home).toContain("chrome://extensions");
+    expect(home).toContain(
+      "https://addons.mozilla.org/en-US/firefox/addon/conduit/",
+    );
+    expect(home).toContain("Firefox Add-ons (approved)");
     expect(home).toContain("github.com/err0rgod/skills/tree/main/conduit");
     expect(home).toContain(
       "The Chrome Web Store listing is temporarily unavailable",
