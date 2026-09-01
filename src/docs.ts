@@ -27,14 +27,14 @@ export const docs: DocPage[] = [
         ],
         bullets: [
           "Node.js 22 or newer runs the backend.",
-          "Chrome and Brave share the Chromium build; while the Chrome Web Store listing is temporarily unavailable, use the verified unpacked GitHub archive. Edge uses the same Chromium build through Edge Add-ons. Firefox has an approved Mozilla Add-ons listing and its own package.",
+          "Chrome and Brave share the Chromium build and can use the live Chrome Web Store listing. Edge uses the same Chromium build through Edge Add-ons. Firefox has an approved Mozilla Add-ons listing and its own package.",
           "The daemon binds to 127.0.0.1 by default and authenticates the extension through Native Messaging.",
         ],
       },
       {
         heading: "Before the first action",
         paragraphs: [
-          "Install the backend first, download and load the extension from the verified GitHub archive second, and add the Conduit SKILL.md to your AI harness third. While the Chrome Web Store listing is temporarily unavailable, Chrome and Brave users should use Chrome Developer mode with the unpacked release. Grant only the site you intend to automate from the extension popup. Conduit starts with browser.read only and asks on first-use domains. Per-site access is the recommended default; an operator may explicitly choose Allow all sites for a local workflow, but that browser grant never changes daemon policy.",
+          "Install the backend first, install the extension second, and add the Conduit SKILL.md to your AI harness third. Chrome and Brave users can use the live Chrome Web Store listing; the verified GitHub unpacked release remains available for development or recovery. Grant only the site you intend to automate from the extension popup. Conduit starts with browser.read only and asks on first-use domains. Per-site access is the recommended default; an operator may explicitly choose Allow all sites for a local workflow, but that browser grant never changes daemon policy.",
         ],
         code: "conduit setup\nconduit doctor\nconduit browser tabs",
         note: "Conduit is pre-1.0. Use a disposable browser profile and non-sensitive test pages while evaluating it.",
@@ -68,10 +68,10 @@ export const docs: DocPage[] = [
       {
         heading: "2. Install the browser extension",
         paragraphs: [
-          "The Chrome Web Store listing is temporarily unavailable. Until it returns, download the verified unpacked build from the Conduit Extension GitHub release and load it through Chrome Developer mode. Chrome and Brave can use this Chromium build. Edge uses the same Chromium source package through Microsoft Edge Add-ons. Firefox has an approved Mozilla Add-ons listing and a separate build because its background and advanced-interaction APIs differ.",
+          "Chrome and Brave users should install the live Chrome Web Store listing. The verified unpacked build from the Conduit Extension GitHub release remains available for development or recovery and can be loaded through Chrome Developer mode. Edge uses the same Chromium source package through Microsoft Edge Add-ons. Firefox has an approved Mozilla Add-ons listing and a separate build because its background and advanced-interaction APIs differ.",
           "The unpacked archive preserves the deterministic development identity jkdlmcpkgkooilffjegfjmkanoelbmbl, which is already trusted by the backend. Do not use a store archive for Developer Mode loading: store-assigned IDs require explicit conduit extension trust <extension-id> configuration.",
         ],
-        code: "Download for Chrome/Brave: https://github.com/err0rgod/conduit-extension/releases/download/v0.1.3/conduit-extension-unpacked-v0.1.3.zip\nRelease notes: https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3\nChrome: chrome://extensions\nFirefox Add-ons (approved): https://addons.mozilla.org/en-US/firefox/addon/conduit/",
+        code: "Chrome/Brave store: https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc\nGitHub fallback: https://github.com/err0rgod/conduit-extension/releases/download/v0.1.3/conduit-extension-unpacked-v0.1.3.zip\nRelease notes: https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3\nChrome: chrome://extensions\nFirefox Add-ons (approved): https://addons.mozilla.org/en-US/firefox/addon/conduit/",
         note: "Chrome Developer mode: extract the ZIP, open chrome://extensions, enable Developer mode, choose Load unpacked, and select the extracted folder containing manifest.json. Keep the folder in place while using the extension.",
       },
       {
@@ -97,7 +97,7 @@ export const docs: DocPage[] = [
         heading: "1. Confirm the three installations",
         bullets: [
           "The backend installer completed and conduit doctor can run.",
-          "Conduit Extension is loaded from the Chrome Web Store when available, or from the verified GitHub unpacked archive through Chrome Developer mode while the store listing is unavailable. Firefox users can install the approved Mozilla Add-ons listing directly.",
+          "Conduit Extension is loaded from the live Chrome Web Store listing for Chrome and Brave, or from the verified GitHub unpacked archive through Chrome Developer mode for development and recovery. Firefox users can install the approved Mozilla Add-ons listing directly.",
           "The Conduit skill directory or SKILL.md is installed in the AI harness.",
           "Pin the Conduit extension so its status is always visible.",
         ],
@@ -170,7 +170,7 @@ export const docs: DocPage[] = [
       {
         heading: "Browser APIs",
         paragraphs: [
-          "Core actions use tabs and scripting. The Chrome Web Store listing is temporarily unavailable; use the v0.1.3 unpacked GitHub release with Chrome Developer mode until it returns. One Chromium build serves Chrome, Edge, and Brave, while Firefox has an approved Mozilla Add-ons listing, a separate package, and omits Chromium's debugger permission, so hover, physical key input, and approved file uploads are unavailable there. Broad host access remains optional, user-initiated, and independent from daemon authorization.",
+          "Core actions use tabs and scripting. The live Chrome Web Store listing is the normal Chrome and Brave install path; the v0.1.3 unpacked GitHub release remains available for development and recovery. One Chromium build serves Chrome, Edge, and Brave, while Firefox has an approved Mozilla Add-ons listing, a separate package, and omits Chromium's debugger permission, so hover, physical key input, and approved file uploads are unavailable there. Broad host access remains optional, user-initiated, and independent from daemon authorization.",
         ],
       },
     ],
@@ -516,7 +516,7 @@ export const docs: DocPage[] = [
         bullets: [
           "Run conduit setup again to repair the current-user Native Messaging registration.",
           "Confirm the daemon is running and restart the browser after installing the extension.",
-          "While the Chrome Web Store listing is unavailable, use the unpacked GitHub archive and confirm the extension ID is jkdlmcpkgkooilffjegfjmkanoelbmbl. The previously published Chrome Web Store ID remains trusted if the listing returns. For Edge or another Chromium store, copy its item ID and run conduit extension trust <extension-id> once.",
+          "Chrome and Brave normally use the live Chrome Web Store listing. For the unpacked GitHub archive, confirm the extension ID is jkdlmcpkgkooilffjegfjmkanoelbmbl. The published Chrome Web Store ID gjhipjgiapijcdnflldnoenafeegmfpc is trusted by default. For Edge or another Chromium store, copy its item ID and run conduit extension trust <extension-id> once.",
           "The ID jkdlmcpkgkooilffjegfjmkanoelbmbl applies only to the unpacked development build.",
           "Firefox uses the fixed add-on ID conduit@err0rgod.github.io.",
         ],
@@ -614,7 +614,7 @@ export const docs: DocPage[] = [
           "Complete confirmation and audit management UI in the extension.",
           "Improve iframe, shadow DOM, popup, dialog, and dynamic-page coverage.",
           "Exercise remote networking on a documented private-network deployment.",
-          "Complete Edge Add-ons and Firefox Add-ons review and replace their search links with final listing URLs.",
+          "Complete Edge Add-ons review and replace its search link with a final listing URL.",
           "Define a compatibility policy and supported release line.",
         ],
       },
@@ -629,7 +629,7 @@ export const docs: DocPage[] = [
       {
         heading: "v0.1.3 backend · 25 August 2026",
         bullets: [
-          "The backend trusts the previously published Chrome Web Store ID gjhipjgiapijcdnflldnoenafeegmfpc alongside the unpacked development ID. The store listing is temporarily unavailable; the public installation path now uses the verified GitHub unpacked archive.",
+          "The backend trusts the live Chrome Web Store ID gjhipjgiapijcdnflldnoenafeegmfpc alongside the unpacked development ID. The public installation path uses the store listing, with the verified GitHub unpacked archive retained as a development and recovery fallback.",
           "Installers and documentation link directly to the reviewed Chrome and Brave listing.",
           "Running conduit setup migrates existing development-only Native Messaging configurations to include the official Chrome identity.",
         ],

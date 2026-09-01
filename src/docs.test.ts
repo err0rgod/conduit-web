@@ -81,6 +81,9 @@ describe("documentation catalog", () => {
     expect(extensionIndex).toBeGreaterThan(backendIndex);
     expect(skillIndex).toBeGreaterThan(extensionIndex);
     expect(installation).toContain("conduit-extension-unpacked-v0.1.3.zip");
+    expect(installation).toContain(
+      "https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc",
+    );
     expect(installation).toContain("chrome://extensions");
     expect(installation).toContain("Developer mode");
     expect(installation).toContain("jkdlmcpkgkooilffjegfjmkanoelbmbl");

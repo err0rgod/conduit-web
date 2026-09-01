@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  AlertTriangle,
   Check,
   Copy,
   Download,
@@ -20,6 +19,8 @@ const extensionReleaseUrl =
   "https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3";
 const extensionArchiveUrl =
   "https://github.com/err0rgod/conduit-extension/releases/download/v0.1.3/conduit-extension-unpacked-v0.1.3.zip";
+const chromeStoreUrl =
+  "https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc";
 const firefoxAddonUrl =
   "https://addons.mozilla.org/en-US/firefox/addon/conduit/";
 const skillDirectoryUrl =
@@ -38,8 +39,7 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="eyebrow">
-          <span className="status-dot" /> Chrome Web Store temporarily
-          unavailable · backend v0.1.3
+          <span className="status-dot" /> Chrome Web Store live · backend v0.1.3
         </div>
         <h1>Connect any AI agent to your browser securely.</h1>
         <p>
@@ -62,9 +62,9 @@ export default function Home() {
           <Link to="/docs/getting-started" className="button secondary">
             Read the docs
           </Link>
-          <a className="button secondary" href={extensionArchiveUrl}>
-            <Download size={18} />
-            Download Chrome extension
+          <a className="button secondary" href={chromeStoreUrl}>
+            <ExternalLink size={18} />
+            Install Chrome extension
           </a>
         </div>
 
@@ -82,19 +82,21 @@ export default function Home() {
         />
       </section>
 
-      <section className="extension-status" role="status">
-        <AlertTriangle size={24} />
+      <section className="extension-status live" role="status">
+        <Check size={24} />
         <div>
-          <strong>
-            The Chrome Web Store listing is temporarily unavailable.
-          </strong>
+          <strong>Conduit Extension is live on the Chrome Web Store.</strong>
           <p>
-            Until it returns, install the verified unpacked build from GitHub
-            and load it through Chrome Developer mode. The backend already
-            trusts this development build's extension identity.
+            Install the signed Chrome build directly. The verified GitHub
+            archive remains available for development or recovery, and the
+            backend trusts both identities.
           </p>
+          <a className="button store-button" href={chromeStoreUrl}>
+            <ExternalLink size={17} />
+            Install from Chrome Web Store
+          </a>
           <a className="text-link" href={extensionReleaseUrl}>
-            View the GitHub extension release →
+            GitHub extension release and fallback →
           </a>
           <p className="extension-status-links">
             Firefox users can install the approved add-on directly from Mozilla:{" "}
@@ -128,13 +130,17 @@ export default function Home() {
           <li>
             <span className="step-number">2</span>
             <div>
-              <h3>Download the extension from GitHub</h3>
+              <h3>Install the extension</h3>
               <p>
-                Download the unpacked ZIP from the Conduit Extension release. It
-                includes the stable development identity trusted by Conduit.
-                Firefox users can install the approved add-on directly from
-                Mozilla instead.
+                Chrome and Brave users can install the live Chrome Web Store
+                listing. Firefox users can install the approved add-on directly
+                from Mozilla. Use the GitHub archive for development or
+                recovery.
               </p>
+              <a className="button store-button" href={chromeStoreUrl}>
+                <ExternalLink size={17} />
+                Chrome Web Store
+              </a>
               <a className="button store-button" href={extensionArchiveUrl}>
                 <Download size={17} />
                 Download unpacked ZIP
@@ -257,9 +263,9 @@ export default function Home() {
           <Link className="button" to="/docs/roadmap">
             View roadmap
           </Link>
-          <a className="button secondary" href={extensionArchiveUrl}>
-            <Download size={18} />
-            Download extension
+          <a className="button secondary" href={chromeStoreUrl}>
+            <ExternalLink size={18} />
+            Install extension
           </a>
         </div>
       </section>
