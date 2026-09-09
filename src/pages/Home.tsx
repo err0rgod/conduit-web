@@ -239,6 +239,11 @@ export default function Home() {
             Strongly typed browser tools return validated results through either
             integration surface.
           </Feature>
+          <Feature title="Browser debugging">
+            Opt-in console and exception capture, redacted network diagnostics,
+            runtime inspection, pause/resume controls, and bounded performance
+            traces.
+          </Feature>
           <Feature title="Policy before action">
             Capability grants, domain rules, confirmations, upload allowlists,
             and payload limits are enforced centrally.

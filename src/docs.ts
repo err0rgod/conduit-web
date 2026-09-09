@@ -173,6 +173,23 @@ export const docs: DocPage[] = [
           "Core actions use tabs and scripting. The live Chrome Web Store listing is the normal Chrome and Brave install path; the v0.1.3 unpacked GitHub release remains available for development and recovery. One Chromium build serves Chrome, Edge, and Brave, while Firefox has an approved Mozilla Add-ons listing, a separate package, and omits Chromium's debugger permission, so hover, physical key input, and approved file uploads are unavailable there. Broad host access remains optional, user-initiated, and independent from daemon authorization.",
         ],
       },
+      {
+        heading: "Opt-in debugging",
+        paragraphs: [
+          "Chromium builds expose a controlled debugging capability when the operator grants the optional debugger permission and the daemon grants browser.debug. A per-tab session can capture bounded console messages, uncaught exceptions, redacted network request/response metadata, pause/resume events, and performance trace data.",
+          "Runtime JavaScript evaluation is high-risk and confirmation-protected. Conduit intentionally omits request bodies, cookies, authorization headers, passwords, tokens, and other secret-like fields from diagnostic events by default. Debug sessions are in-memory, per-tab, and detached when stopped.",
+        ],
+        bullets: [
+          "browser_debug_start and browser_debug_stop manage the debugger attachment.",
+          "browser_debug_events reads events using a bounded sequence cursor.",
+          "browser_debug_evaluate evaluates page code only inside an authorized debug session.",
+          "browser_debug_pause and browser_debug_resume control JavaScript execution.",
+          "browser_debug_trace_start and browser_debug_trace_stop return a bounded performance trace.",
+          "Unrestricted arbitrary Chrome DevTools Protocol commands are not exposed to normal agents.",
+          "Firefox does not provide the same Chromium debugger path; use the supported basic actions and report debugging operations as unavailable.",
+        ],
+        note: "Treat console output, exception text, URLs, headers, and trace data as untrusted page-derived data. Debugging does not grant site access or bypass domain policy.",
+      },
     ],
   },
   {
@@ -188,7 +205,7 @@ export const docs: DocPage[] = [
       {
         heading: "Diagnostics",
         paragraphs: [
-          "conduit doctor checks the Node runtime, configuration, storage, daemon, extension connection, Native Messaging registration, MCP build, remote safety, and local documentation build when present.",
+          "conduit doctor checks the Node runtime, configuration, storage, daemon, extension connection, Native Messaging registration, MCP build, remote safety, and local documentation build when present. On Linux, Conduit honors XDG_CONFIG_HOME for daemon state and Chromium Native Messaging manifests, which avoids slow or failed discovery on nonstandard desktop profiles.",
         ],
         code: "conduit --json doctor",
       },
@@ -219,6 +236,8 @@ export const docs: DocPage[] = [
           "browser_snapshot, browser_get_visible_text, browser_screenshot",
           "browser_click, browser_type, browser_clear, browser_select, browser_hover, browser_scroll, browser_press_key, browser_wait_for",
           "browser_upload_file and browser_get_downloads",
+          "browser_debug_start, browser_debug_stop, browser_debug_events, browser_debug_evaluate",
+          "browser_debug_pause, browser_debug_resume, browser_debug_trace_start, browser_debug_trace_stop",
         ],
         note: "MCP does not bypass extension site access, daemon permissions, domain policy, or confirmation requirements.",
       },
@@ -233,6 +252,11 @@ export const docs: DocPage[] = [
       {
         heading: "Management commands",
         code: "conduit setup\nconduit service status\nconduit doctor\nconduit config path\nconduit permissions\nconduit devices\nconduit upgrade --check\nconduit uninstall",
+      },
+      {
+        heading: "Debugging commands",
+        code: 'conduit browser debug-start\nconduit browser debug-events\nconduit browser debug-evaluate "document.title"\nconduit browser debug-pause\nconduit browser debug-resume\nconduit browser trace-start\nconduit browser trace-stop\nconduit browser debug-stop',
+        note: "These commands require the explicit browser.debug capability, the Chromium debugger permission, and any confirmation required by policy. They are not available through Firefox's reduced package.",
       },
       {
         heading: "Machine-readable output",

@@ -33,6 +33,7 @@ export const privacySections: PrivacySection[] = [
     paragraphs: [
       "Conduit uses browser data only to provide the browser-control functionality requested by the user, enforce permissions and domain policy, return action results, show local connection and audit status, diagnose failures, and protect the authenticated control channel.",
       "Conduit does not use browser data for advertising, profiling, credit decisions, data brokerage, or unrelated product analytics. The extension does not request cookie access and does not intentionally collect browsing activity unrelated to requested Conduit operations.",
+      "The optional Chromium debugging capability can receive page console messages, uncaught exception metadata, network request/response metadata, pause events, and bounded performance trace data for a tab explicitly selected by the user. Diagnostic buffers are held in memory and redact request bodies, cookies, authorization headers, passwords, tokens, and other secret-like fields by default. Runtime evaluation is high-risk, confirmation-protected, and requires a separate daemon capability.",
     ],
   },
   {
