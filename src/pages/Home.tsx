@@ -16,9 +16,9 @@ const installCommands = {
 };
 
 const extensionReleaseUrl =
-  "https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3";
+  "https://github.com/err0rgod/conduit-extension/releases/tag/v1.1.4";
 const extensionArchiveUrl =
-  "https://github.com/err0rgod/conduit-extension/releases/download/v0.1.3/conduit-extension-unpacked-v0.1.3.zip";
+  "https://github.com/err0rgod/conduit-extension/releases/download/v1.1.4/conduit-extension-unpacked-v1.1.4.zip";
 const chromeStoreUrl =
   "https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc";
 const firefoxAddonUrl =
@@ -39,7 +39,7 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="eyebrow">
-          <span className="status-dot" /> Chrome Web Store live · backend v0.1.3
+          <span className="status-dot" /> Chrome Web Store live · backend v1.1.4
         </div>
         <h1>Connect any AI agent to your browser securely.</h1>
         <p>

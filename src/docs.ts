@@ -63,7 +63,7 @@ export const docs: DocPage[] = [
         paragraphs: [
           "By default, the installer selects the newest backend release. Pin it when reproducibility matters.",
         ],
-        code: "./install.sh --version v0.1.3\n./install.ps1 -Version v0.1.3",
+        code: "./install.sh --version v1.1.4\n./install.ps1 -Version v1.1.4",
       },
       {
         heading: "2. Install the browser extension",
@@ -71,7 +71,7 @@ export const docs: DocPage[] = [
           "Chrome and Brave users should install the live Chrome Web Store listing. The verified unpacked build from the Conduit Extension GitHub release remains available for development or recovery and can be loaded through Chrome Developer mode. Edge uses the same Chromium source package through Microsoft Edge Add-ons. Firefox has an approved Mozilla Add-ons listing and a separate build because its background and advanced-interaction APIs differ.",
           "The unpacked archive preserves the deterministic development identity jkdlmcpkgkooilffjegfjmkanoelbmbl, which is already trusted by the backend. Do not use a store archive for Developer Mode loading: store-assigned IDs require explicit conduit extension trust <extension-id> configuration.",
         ],
-        code: "Chrome/Brave store: https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc\nGitHub fallback: https://github.com/err0rgod/conduit-extension/releases/download/v0.1.3/conduit-extension-unpacked-v0.1.3.zip\nRelease notes: https://github.com/err0rgod/conduit-extension/releases/tag/v0.1.3\nChrome: chrome://extensions\nFirefox Add-ons (approved): https://addons.mozilla.org/en-US/firefox/addon/conduit/",
+        code: "Chrome/Brave store: https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc\nGitHub fallback: https://github.com/err0rgod/conduit-extension/releases/download/v1.1.4/conduit-extension-unpacked-v1.1.4.zip\nRelease notes: https://github.com/err0rgod/conduit-extension/releases/tag/v1.1.4\nChrome: chrome://extensions\nFirefox Add-ons (approved): https://addons.mozilla.org/en-US/firefox/addon/conduit/",
         note: "Chrome Developer mode: extract the ZIP, open chrome://extensions, enable Developer mode, choose Load unpacked, and select the extracted folder containing manifest.json. Keep the folder in place while using the extension.",
       },
       {
@@ -170,7 +170,7 @@ export const docs: DocPage[] = [
       {
         heading: "Browser APIs",
         paragraphs: [
-          "Core actions use tabs and scripting. The live Chrome Web Store listing is the normal Chrome and Brave install path; the v0.1.3 unpacked GitHub release remains available for development and recovery. One Chromium build serves Chrome, Edge, and Brave, while Firefox has an approved Mozilla Add-ons listing, a separate package, and omits Chromium's debugger permission, so hover, physical key input, and approved file uploads are unavailable there. Broad host access remains optional, user-initiated, and independent from daemon authorization.",
+          "Core actions use tabs and scripting. The live Chrome Web Store listing is the normal Chrome and Brave install path; the v1.1.4 unpacked GitHub release remains available for development and recovery. One Chromium build serves Chrome, Edge, and Brave, while Firefox has an approved Mozilla Add-ons listing, a separate package, and omits Chromium's debugger permission, so hover, physical key input, approved file uploads, and Chromium debugging are unavailable there. Broad host access remains optional, user-initiated, and independent from daemon authorization.",
         ],
       },
       {

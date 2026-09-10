@@ -80,7 +80,7 @@ describe("documentation catalog", () => {
     expect(backendIndex).toBeGreaterThanOrEqual(0);
     expect(extensionIndex).toBeGreaterThan(backendIndex);
     expect(skillIndex).toBeGreaterThan(extensionIndex);
-    expect(installation).toContain("conduit-extension-unpacked-v0.1.3.zip");
+    expect(installation).toContain("conduit-extension-unpacked-v1.1.4.zip");
     expect(installation).toContain(
       "https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc",
     );

@@ -21,7 +21,7 @@ describe("home page installation path", () => {
   });
 
   it("links to the live Chrome listing, GitHub fallback, and public skill", () => {
-    expect(home).toContain("conduit-extension-unpacked-v0.1.3.zip");
+    expect(home).toContain("conduit-extension-unpacked-v1.1.4.zip");
     expect(home).toContain("Chrome Web Store live");
     expect(home).toContain(
       "https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc",
