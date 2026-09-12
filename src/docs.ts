@@ -176,7 +176,7 @@ export const docs: DocPage[] = [
       {
         heading: "Opt-in debugging",
         paragraphs: [
-          "Chromium builds expose a controlled debugging capability when the operator grants the optional debugger permission and the daemon grants browser.debug. A per-tab session can capture bounded console messages, uncaught exceptions, redacted network request/response metadata, pause/resume events, and performance trace data.",
+          "Chromium builds expose a controlled debugging capability when the installed Chromium build includes its required debugger permission and the daemon grants browser.debug. A per-tab session can capture bounded console messages, uncaught exceptions, redacted network request/response metadata, pause/resume events, and performance trace data.",
           "Runtime JavaScript evaluation is high-risk and confirmation-protected. Conduit intentionally omits request bodies, cookies, authorization headers, passwords, tokens, and other secret-like fields from diagnostic events by default. Debug sessions are in-memory, per-tab, and detached when stopped.",
         ],
         bullets: [
