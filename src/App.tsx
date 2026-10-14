@@ -18,9 +18,7 @@ function Navigation() {
     <header className="site-header">
       <Link to="/" className="brand" aria-label="Conduit home">
         <span className="brand-mark" aria-hidden="true">
-          <i />
-          <i />
-          <i />
+          <img src="/logo.jpg" alt="" />
         </span>
         <span>CONDUIT</span>
       </Link>

@@ -20,9 +20,11 @@ describe("home page installation path", () => {
     expect(skill).toBeGreaterThan(load);
   });
 
-  it("links to the live Chrome listing, GitHub fallback, and public skill", () => {
+  it("links to the browser listings, GitHub fallback, and public skill", () => {
     expect(home).toContain("conduit-extension-unpacked-v1.1.4.zip");
-    expect(home).toContain("Chrome Web Store live");
+    expect(home).not.toContain(
+      "Conduit Extension is live on the Chrome Web Store",
+    );
     expect(home).toContain(
       "https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc",
     );
@@ -32,6 +34,5 @@ describe("home page installation path", () => {
     );
     expect(home).toContain("Firefox Add-ons (approved)");
     expect(home).toContain("github.com/err0rgod/skills/tree/main/conduit");
-    expect(home).toContain("Conduit Extension is live on the Chrome Web Store");
   });
 });

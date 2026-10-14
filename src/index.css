@@ -1574,3 +1574,41 @@ footer {
     min-height: 140px;
   }
 }
+
+/* Original Conduit infinity mark, cropped from the project logo artwork. */
+.brand-mark {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 30px;
+  flex: none;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(117, 216, 238, 0.28);
+  border-radius: 10px;
+  background: #081427;
+  box-shadow: 0 3px 10px rgba(17, 81, 119, 0.2);
+}
+
+.brand-mark img {
+  position: absolute;
+  top: -14px;
+  left: -13px;
+  display: block;
+  width: 68px;
+  max-width: none;
+  height: auto;
+}
+
+@media (max-width: 680px) {
+  .brand-mark {
+    width: 36px;
+    height: 27px;
+  }
+
+  .brand-mark img {
+    top: -14px;
+    left: -14px;
+    width: 64px;
+  }
+}

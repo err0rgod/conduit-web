@@ -15,8 +15,6 @@ const installCommands = {
   unix: "curl -fsSL https://raw.githubusercontent.com/err0rgod/conduit/main/scripts/install.sh | bash",
 };
 
-const extensionReleaseUrl =
-  "https://github.com/err0rgod/conduit-extension/releases/tag/v1.1.4";
 const extensionArchiveUrl =
   "https://github.com/err0rgod/conduit-extension/releases/download/v1.1.4/conduit-extension-unpacked-v1.1.4.zip";
 const chromeStoreUrl =
@@ -80,29 +78,6 @@ export default function Home() {
           copied={copied === "unix"}
           onCopy={() => copy("unix", installCommands.unix)}
         />
-      </section>
-
-      <section className="extension-status live" role="status">
-        <Check size={24} />
-        <div>
-          <strong>Conduit Extension is live on the Chrome Web Store.</strong>
-          <p>
-            Install the signed Chrome build directly. The verified GitHub
-            archive remains available for development or recovery, and the
-            backend trusts both identities.
-          </p>
-          <a className="button store-button" href={chromeStoreUrl}>
-            <ExternalLink size={17} />
-            Install from Chrome Web Store
-          </a>
-          <a className="text-link" href={extensionReleaseUrl}>
-            GitHub extension release and fallback →
-          </a>
-          <p className="extension-status-links">
-            Firefox users can install the approved add-on directly from Mozilla:{" "}
-            <a href={firefoxAddonUrl}>Firefox Add-ons →</a>
-          </p>
-        </div>
       </section>
 
       <section className="section install-steps-section">
