@@ -15,41 +15,34 @@ function Navigation() {
   const path = location.pathname;
 
   return (
-    <header>
-      <Link to="/" className="brand">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-        </svg>
-        CONDUIT
+    <header className="site-header">
+      <Link to="/" className="brand" aria-label="Conduit home">
+        <span className="brand-mark" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </span>
+        <span>CONDUIT</span>
       </Link>
-      <div className="nav">
-        <Link to="/" style={{ color: path === "/" ? "#fff" : "#888" }}>
+      <nav className="nav" aria-label="Primary navigation">
+        <Link to="/" className={path === "/" ? "active" : undefined}>
           Platform
         </Link>
         <Link
           to="/docs/getting-started"
-          style={{ color: path.startsWith("/docs") ? "#fff" : "#888" }}
+          className={path.startsWith("/docs") ? "active" : undefined}
         >
           Docs
         </Link>
         <Link
           to="/privacy"
-          style={{ color: path === "/privacy" ? "#fff" : "#888" }}
+          className={path === "/privacy" ? "active" : undefined}
         >
           Privacy
         </Link>
         <a href="https://github.com/err0rgod/conduit/releases">Releases</a>
         <a href="https://github.com/err0rgod/conduit">GitHub</a>
-      </div>
+      </nav>
     </header>
   );
 }
