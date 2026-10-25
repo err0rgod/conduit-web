@@ -17,7 +17,7 @@ export default function Docs() {
   const next = docs[index + 1];
 
   return (
-    <main className="docs-layout">
+    <main className="docs-layout shell">
       <aside className="docs-sidebar" aria-label="Documentation navigation">
         <div className="sidebar-label">Documentation</div>
         <nav>

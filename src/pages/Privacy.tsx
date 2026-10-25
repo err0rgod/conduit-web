@@ -3,7 +3,7 @@ import { privacyEffectiveDate, privacySections } from "../privacy";
 
 export default function Privacy() {
   return (
-    <main className="privacy-page">
+    <main className="privacy-page shell">
       <article className="docs-article">
         <div className="docs-kicker">Legal / Privacy</div>
         <h1>Privacy Policy</h1>

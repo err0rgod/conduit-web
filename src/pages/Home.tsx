@@ -1,13 +1,22 @@
 import { useState } from "react";
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import {
+  ArrowRight,
+  Bug,
   Check,
   Copy,
   Download,
-  ExternalLink,
+  FlaskConical,
+  Globe,
+  KeyRound,
+  ListChecks,
+  Lock,
+  ScanText,
   ShieldCheck,
   Terminal,
 } from "lucide-react";
+import GitHubIcon from "../GitHubIcon";
 
 const installCommands = {
   windows:
@@ -17,167 +26,100 @@ const installCommands = {
 
 const extensionArchiveUrl =
   "https://github.com/err0rgod/conduit-extension/releases/download/v1.1.4/conduit-extension-unpacked-v1.1.4.zip";
-const chromeStoreUrl =
+export const chromeStoreUrl =
   "https://chromewebstore.google.com/detail/conduit-extension/gjhipjgiapijcdnflldnoenafeegmfpc";
 const firefoxAddonUrl =
   "https://addons.mozilla.org/en-US/firefox/addon/conduit/";
 const skillDirectoryUrl =
   "https://github.com/err0rgod/skills/tree/main/conduit";
 
-export default function Home() {
-  const [copied, setCopied] = useState<string>();
+type Platform = keyof typeof installCommands;
 
-  async function copy(label: string, value: string) {
-    await navigator.clipboard.writeText(value);
-    setCopied(label);
-    window.setTimeout(() => setCopied(undefined), 1800);
+const sessionLines: { kind: string; text: string; id?: string }[] = [
+  { kind: "cmd", text: "conduit browser open https://example.com" },
+  { kind: "ok", text: "tab opened · example.com granted" },
+  { kind: "gap", text: "" },
+  { kind: "cmd", text: "conduit browser snapshot --mode interactive" },
+  { kind: "out", id: "e1", text: 'heading "Example Domain"' },
+  { kind: "out", id: "e2", text: 'link "More information…"' },
+  { kind: "out", id: "e3", text: 'button "Sign in"' },
+  { kind: "gap", text: "" },
+  { kind: "cmd", text: "conduit browser click --element e3" },
+  { kind: "ok", text: "clicked e3 · policy check passed" },
+];
+
+export default function Home() {
+  const [platform, setPlatform] = useState<Platform>("windows");
+  const [copied, setCopied] = useState(false);
+
+  async function copy() {
+    await navigator.clipboard.writeText(installCommands[platform]);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
   }
 
   return (
     <main>
-      <section className="hero">
-        <div className="eyebrow">
-          <span className="status-dot" /> Chrome Web Store live · backend v1.1.4
-        </div>
-        <h1>Connect any AI agent to your browser securely.</h1>
-        <p>
-          Conduit is a local browser-control bridge: one authenticated daemon,
-          one least-privilege browser extension, and typed tools for MCP and CLI
-          clients.
-        </p>
-        <div className="hero-actions">
-          <button
-            className="button"
-            onClick={() => copy("windows", installCommands.windows)}
-          >
-            {copied === "windows" ? (
-              <Check size={18} />
-            ) : (
-              <Terminal size={18} />
-            )}
-            {copied === "windows" ? "Copied" : "Install for Windows"}
-          </button>
-          <Link to="/docs/getting-started" className="button secondary">
-            Read the docs
-          </Link>
-          <a className="button secondary" href={chromeStoreUrl}>
-            <ExternalLink size={18} />
-            Install Chrome extension
+      <section className="hero shell">
+        <div className="hero-copy">
+          <a className="pill" href={chromeStoreUrl}>
+            <span className="status-dot" /> Live on the Chrome Web Store
+            <ArrowRight size={14} />
           </a>
-        </div>
-
-        <InstallCommand
-          label="Windows · PowerShell"
-          value={installCommands.windows}
-          copied={copied === "windows"}
-          onCopy={() => copy("windows", installCommands.windows)}
-        />
-        <InstallCommand
-          label="macOS / Linux · Bash"
-          value={installCommands.unix}
-          copied={copied === "unix"}
-          onCopy={() => copy("unix", installCommands.unix)}
-        />
-      </section>
-
-      <section className="section install-steps-section">
-        <div className="eyebrow">Start here</div>
-        <h2>Install Conduit in 4 steps.</h2>
-        <p className="subtitle">
-          Install the local backend, download the verified extension from
-          GitHub, load it in Chrome Developer mode, then give your AI harness
-          the skill.
-        </p>
-        <ol className="install-steps">
-          <li>
-            <span className="step-number">1</span>
-            <div>
-              <h3>Install the backend</h3>
-              <p>
-                Run the Windows or macOS/Linux command above. The script
-                downloads, verifies, configures, and starts Conduit locally.
-              </p>
-              <Link className="text-link" to="/docs/installation">
-                Backend installation details →
-              </Link>
-            </div>
-          </li>
-          <li>
-            <span className="step-number">2</span>
-            <div>
-              <h3>Install the extension</h3>
-              <p>
-                Chrome and Brave users can install the live Chrome Web Store
-                listing. Firefox users can install the approved add-on directly
-                from Mozilla. Use the GitHub archive for development or
-                recovery.
-              </p>
-              <a className="button store-button" href={chromeStoreUrl}>
-                <ExternalLink size={17} />
-                Chrome Web Store
-              </a>
-              <a className="button store-button" href={extensionArchiveUrl}>
-                <Download size={17} />
-                Download unpacked ZIP
-                <ExternalLink size={15} />
-              </a>
-              <a className="text-link browser-link" href={firefoxAddonUrl}>
-                Firefox Add-ons (approved) →
-              </a>
-            </div>
-          </li>
-          <li>
-            <span className="step-number">3</span>
-            <div>
-              <h3>Load it in Chrome</h3>
-              <p>
-                Extract the ZIP, open <code>chrome://extensions</code>, enable
-                Developer mode, choose Load unpacked, and select the folder
-                containing <code>manifest.json</code>.
-              </p>
-              <a
-                className="text-link"
-                href="https://github.com/err0rgod/conduit-extension#development"
-              >
-                See the Developer Mode instructions →
-              </a>
-            </div>
-          </li>
-          <li>
-            <span className="step-number">4</span>
-            <div>
-              <h3>Install SKILL.md</h3>
-              <p>
-                Add the Conduit skill directory to any Agent Skills-compatible
-                AI harness.
-              </p>
-              <a className="text-link" href={skillDirectoryUrl}>
-                Open the Conduit skill directory →
-              </a>
-            </div>
-          </li>
-        </ol>
-      </section>
-
-      <section className="security-banner">
-        <ShieldCheck size={24} />
-        <div>
-          <strong>Page content is data, not trusted agent instruction.</strong>
-          <p>
-            Conduit keeps page text outside the permission boundary. Per-site
-            access remains the default; broader access requires an explicit user
-            opt-in and never bypasses daemon policy.
+          <h1>
+            Let your AI agent use the browser.
+            <span> Safely, on your machine.</span>
+          </h1>
+          <p className="lead">
+            Conduit is an open-source bridge between AI agents and your real
+            browser. One local daemon, one least-privilege extension, and typed
+            tools for MCP and CLI clients. No cloud relay.
           </p>
+          <div className="actions">
+            <a className="button" href={chromeStoreUrl}>
+              Add to Chrome — it's free
+            </a>
+            <Link to="/docs/getting-started" className="button ghost">
+              Read the docs <ArrowRight size={16} />
+            </Link>
+          </div>
+          <ul className="hero-meta">
+            <li>
+              <Check size={15} /> Chrome, Brave, Edge & Firefox
+            </li>
+            <li>
+              <Check size={15} /> MIT licensed
+            </li>
+            <li>
+              <Check size={15} /> Backend v1.1.4
+            </li>
+          </ul>
+        </div>
+
+        <div className="hero-visual" aria-hidden="true">
+          <div className="window">
+            <div className="window-bar">
+              <i />
+              <i />
+              <i />
+              <span>agent session</span>
+            </div>
+            <div className="terminal">
+              {sessionLines.map((line, index) => (
+                <div key={index} className={`t-line ${line.kind}`}>
+                  {line.kind === "cmd" && <span className="t-prompt">$</span>}
+                  {line.kind === "ok" && <span className="t-ok">✓</span>}
+                  {line.id && <span className="t-id">{line.id}</span>}
+                  {line.text}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="section">
-        <h2>A small, inspectable control path.</h2>
-        <p className="subtitle">
-          Every request crosses explicit authentication, validation, policy, and
-          browser permission boundaries.
-        </p>
-        <div className="architecture-flow" aria-label="Conduit architecture">
+      <section className="shell flow-section">
+        <div className="flow" aria-label="Conduit architecture">
           {[
             "AI agent",
             "MCP or CLI",
@@ -188,94 +130,214 @@ export default function Home() {
             <div className="flow-step" key={item}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               <strong>{item}</strong>
-              {index < 4 && <i aria-hidden="true">→</i>}
             </div>
           ))}
         </div>
+        <p className="flow-caption">
+          Every request crosses explicit authentication, validation, policy, and
+          browser permission boundaries.
+        </p>
       </section>
 
-      <section className="section">
-        <h2>Secure defaults, useful tools.</h2>
-        <div className="grid-3">
-          <Feature title="Local by default">
+      <section className="section shell">
+        <div className="section-head">
+          <div className="eyebrow">Why Conduit</div>
+          <h2>Secure defaults. Useful tools.</h2>
+          <p>
+            Built for people who want agents to do real work in a browser
+            without handing over the keys to everything.
+          </p>
+        </div>
+        <div className="features">
+          <Feature icon={<Lock size={20} />} title="Local by default">
             Loopback-only networking, random local authentication, and no
             Conduit cloud or public relay.
           </Feature>
-          <Feature title="Per-site browser access">
-            The extension asks the browser for the current origin. Users can
-            revoke it from the same popup or explicitly opt into all HTTP/HTTPS
-            sites.
+          <Feature icon={<Globe size={20} />} title="Per-site browser access">
+            The extension asks for the current origin only. Revoke it from the
+            same popup, or explicitly opt into all HTTP/HTTPS sites.
           </Feature>
-          <Feature title="Structured snapshots">
+          <Feature icon={<ScanText size={20} />} title="Structured snapshots">
             Accessibility-oriented page data and short-lived element IDs reduce
             reliance on fragile selectors.
           </Feature>
-          <Feature title="MCP and CLI">
+          <Feature icon={<Terminal size={20} />} title="MCP and CLI">
             Strongly typed browser tools return validated results through either
             integration surface.
           </Feature>
-          <Feature title="Browser debugging">
-            Opt-in console and exception capture, redacted network diagnostics,
-            runtime inspection, pause/resume controls, and bounded performance
-            traces.
+          <Feature icon={<Bug size={20} />} title="Browser debugging">
+            Opt-in console capture, redacted network diagnostics, runtime
+            inspection, and bounded performance traces.
           </Feature>
-          <Feature title="Policy before action">
+          <Feature icon={<ListChecks size={20} />} title="Policy before action">
             Capability grants, domain rules, confirmations, upload allowlists,
             and payload limits are enforced centrally.
-          </Feature>
-          <Feature title="Tested release path">
-            Cross-platform CI, security tests, real Chromium E2E, and
-            checksummed GitHub Release artifacts.
           </Feature>
         </div>
       </section>
 
-      <section className="cta">
-        <div>
-          <div className="eyebrow">Project status</div>
-          <h2>Pre-1.0, honest, and ready to study.</h2>
+      <section className="section shell" id="install">
+        <div className="section-head">
+          <div className="eyebrow">Get started</div>
+          <h2>Up and running in four steps.</h2>
           <p>
-            The core vertical slice works. Sensitive unattended use is not
-            recommended yet.
+            Install the local backend, add the extension, and give your AI
+            harness the skill.
           </p>
         </div>
-        <div className="hero-actions">
-          <Link className="button" to="/docs/roadmap">
-            View roadmap
-          </Link>
-          <a className="button secondary" href={chromeStoreUrl}>
-            <ExternalLink size={18} />
-            Install extension
-          </a>
+
+        <div className="install-box">
+          <div className="tabs" role="tablist" aria-label="Operating system">
+            <button
+              role="tab"
+              aria-selected={platform === "windows"}
+              onClick={() => setPlatform("windows")}
+            >
+              Windows · PowerShell
+            </button>
+            <button
+              role="tab"
+              aria-selected={platform === "unix"}
+              onClick={() => setPlatform("unix")}
+            >
+              macOS / Linux · Bash
+            </button>
+          </div>
+          <div className="command">
+            <code>{installCommands[platform]}</code>
+            <button onClick={copy} aria-label="Copy install command">
+              {copied ? <Check size={15} /> : <Copy size={15} />}
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
+        </div>
+
+        <ol className="steps">
+          <Step n={1} title="Install the backend">
+            <p>
+              Run the command above. The script downloads, verifies, configures,
+              and starts Conduit locally.
+            </p>
+            <Link className="text-link" to="/docs/installation">
+              Installation details <ArrowRight size={14} />
+            </Link>
+          </Step>
+          <Step n={2} title="Install the extension">
+            <p>
+              Chrome, Brave and Edge users install from the Chrome Web Store.
+              Firefox users get the approved Mozilla add-on.
+            </p>
+            <div className="step-links">
+              <a className="text-link" href={chromeStoreUrl}>
+                Chrome Web Store <ArrowRight size={14} />
+              </a>
+              <a className="text-link" href={firefoxAddonUrl}>
+                Firefox Add-ons (approved) <ArrowRight size={14} />
+              </a>
+            </div>
+          </Step>
+          <Step n={3} title="Load it in Chrome (optional)">
+            <p>
+              Prefer a manual install? Extract the{" "}
+              <a href={extensionArchiveUrl}>
+                unpacked ZIP <Download size={13} />
+              </a>
+              , open <code>chrome://extensions</code>, enable Developer mode,
+              and choose Load unpacked.
+            </p>
+          </Step>
+          <Step n={4} title="Install SKILL.md">
+            <p>
+              Add the Conduit skill directory to any Agent Skills-compatible AI
+              harness.
+            </p>
+            <a className="text-link" href={skillDirectoryUrl}>
+              Open the skill directory <ArrowRight size={14} />
+            </a>
+          </Step>
+        </ol>
+      </section>
+
+      <section className="section shell">
+        <div className="callout">
+          <div className="callout-icon">
+            <ShieldCheck size={24} />
+          </div>
+          <div>
+            <h3>Page content is data, not instructions.</h3>
+            <p>
+              Conduit keeps page text outside the permission boundary. Per-site
+              access is the default; broader access requires an explicit opt-in
+              and never bypasses daemon policy.
+            </p>
+            <Link className="text-link" to="/docs/prompt-injection">
+              How Conduit handles prompt injection <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+        <div className="mini-grid">
+          <Mini icon={<KeyRound size={18} />} title="Authenticated pairing">
+            The extension authenticates to the daemon through Native Messaging.
+          </Mini>
+          <Mini icon={<FlaskConical size={18} />} title="Tested release path">
+            Cross-platform CI, security tests, real Chromium E2E, checksummed
+            releases.
+          </Mini>
+        </div>
+      </section>
+
+      <section className="section shell">
+        <div className="cta">
+          <h2>Give your agent a browser it can't misuse.</h2>
+          <p>
+            Pre-1.0 and honest about it: the core works, and every line is open
+            to inspect.
+          </p>
+          <div className="actions center">
+            <a className="button light" href={chromeStoreUrl}>
+              Add to Chrome
+            </a>
+            <a
+              className="button ghost-light"
+              href="https://github.com/err0rgod/conduit"
+            >
+              <GitHubIcon size={16} /> Star on GitHub
+            </a>
+          </div>
         </div>
       </section>
     </main>
   );
 }
 
-function InstallCommand(props: {
-  label: string;
-  value: string;
-  copied: boolean;
-  onCopy: () => void;
-}) {
+function Feature(props: { icon: ReactNode; title: string; children: string }) {
   return (
-    <div className="install-command">
-      <div className="command-label">{props.label}</div>
-      <code>{props.value}</code>
-      <button onClick={props.onCopy} aria-label={`Copy ${props.label} command`}>
-        {props.copied ? <Check size={15} /> : <Copy size={15} />}
-        {props.copied ? "Copied" : "Copy"}
-      </button>
+    <div className="feature">
+      <div className="feature-icon">{props.icon}</div>
+      <h3>{props.title}</h3>
+      <p>{props.children}</p>
     </div>
   );
 }
 
-function Feature(props: { title: string; children: string }) {
+function Mini(props: { icon: ReactNode; title: string; children: string }) {
   return (
-    <div className="card">
-      <h3>{props.title}</h3>
-      <p>{props.children}</p>
+    <div className="mini">
+      <div className="mini-icon">{props.icon}</div>
+      <div>
+        <strong>{props.title}</strong>
+        <p>{props.children}</p>
+      </div>
     </div>
+  );
+}
+
+function Step(props: { n: number; title: string; children: ReactNode }) {
+  return (
+    <li className="step">
+      <span className="step-number">{props.n}</span>
+      <h3>{props.title}</h3>
+      {props.children}
+    </li>
   );
 }
