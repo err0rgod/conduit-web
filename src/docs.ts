@@ -37,7 +37,6 @@ export const docs: DocPage[] = [
           "Install the backend first, install the extension second, and add the Conduit SKILL.md to your AI harness third. Chrome and Brave users can use the live Chrome Web Store listing; the verified GitHub unpacked release remains available for development or recovery. Grant only the site you intend to automate from the extension popup. Conduit starts with browser.read only and asks on first-use domains. Per-site access is the recommended default; an operator may explicitly choose Allow all sites for a local workflow, but that browser grant never changes daemon policy.",
         ],
         code: "conduit setup\nconduit doctor\nconduit browser tabs",
-        note: "Conduit is pre-1.0. Use a disposable browser profile and non-sensitive test pages while evaluating it.",
       },
     ],
   },
@@ -619,7 +618,7 @@ export const docs: DocPage[] = [
     slug: "roadmap",
     title: "Roadmap",
     summary:
-      "See what is reliable today and the highest-value work that remains before a stable release.",
+      "See what is reliable today and the highest-value work that comes next.",
     blocks: [
       {
         heading: "Working today",
@@ -633,7 +632,7 @@ export const docs: DocPage[] = [
         ],
       },
       {
-        heading: "Before 1.0",
+        heading: "Next up",
         bullets: [
           "Complete confirmation and audit management UI in the extension.",
           "Improve iframe, shadow DOM, popup, dialog, and dynamic-page coverage.",

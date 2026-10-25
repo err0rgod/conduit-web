@@ -78,7 +78,7 @@ export const privacySections: PrivacySection[] = [
   {
     title: "Security",
     paragraphs: [
-      "Conduit uses authenticated local communication, explicit browser permission prompts, independent daemon policy, confirmation boundaries, and audit redaction. No software can eliminate every risk. Users should grant the narrowest practical site and capability access and avoid unattended use with sensitive accounts while Conduit remains pre-1.0.",
+      "Conduit uses authenticated local communication, explicit browser permission prompts, independent daemon policy, confirmation boundaries, and audit redaction. No software can eliminate every risk. Users should grant the narrowest practical site and capability access and avoid unattended use with sensitive accounts.",
     ],
   },
   {

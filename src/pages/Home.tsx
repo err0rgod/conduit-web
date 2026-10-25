@@ -87,7 +87,7 @@ export default function Home() {
               <Check size={15} /> MIT licensed
             </li>
             <li>
-              <Check size={15} /> Backend v1.1.4
+              <Check size={15} /> Conduit v1.1.4
             </li>
           </ul>
         </div>
@@ -286,7 +286,7 @@ export default function Home() {
         <div className="cta">
           <h2>Give your agent a browser it can't misuse.</h2>
           <p>
-            Pre-1.0 and honest about it: the core works, and every line is open
+            Conduit v1.1.4 is out now. Free, open source, and every line is open
             to inspect.
           </p>
           <div className="actions center">
