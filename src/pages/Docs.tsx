@@ -1,9 +1,4 @@
-import {
-  AlertTriangle,
-  ArrowLeft,
-  ArrowRight,
-  ExternalLink,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { defaultDoc, docs, findDoc } from "../docs";
 
@@ -37,19 +32,6 @@ export default function Docs() {
         <div className="docs-kicker">Conduit docs / {page.title}</div>
         <h1>{page.title}</h1>
         <p className="docs-lead">{page.summary}</p>
-
-        {page.slug === "getting-started" && (
-          <div className="warning-panel">
-            <AlertTriangle size={20} aria-hidden="true" />
-            <div>
-              <strong>Pre-1.0 security notice</strong>
-              <p>
-                Evaluate Conduit with a disposable profile before using
-                sensitive accounts.
-              </p>
-            </div>
-          </div>
-        )}
 
         {page.blocks.map((block) => (
           <section className="doc-block" key={block.heading}>

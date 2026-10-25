@@ -986,8 +986,7 @@ pre {
   overflow-x: auto;
 }
 
-.doc-note,
-.warning-panel {
+.doc-note {
   padding: 14px 18px;
   border-radius: 12px;
   font-size: 0.93rem;
@@ -1001,24 +1000,6 @@ pre {
 
 .doc-note strong {
   color: var(--accent-text);
-}
-
-.warning-panel {
-  display: flex;
-  gap: 12px;
-  margin-top: 28px;
-  background: color-mix(in srgb, #f5a524 12%, var(--bg));
-  border: 1px solid color-mix(in srgb, #f5a524 35%, transparent);
-}
-
-.warning-panel svg {
-  flex-shrink: 0;
-  color: #d48806;
-  margin-top: 2px;
-}
-
-.warning-panel p {
-  color: var(--text-2);
 }
 
 .edit-link {
