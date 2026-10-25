@@ -149,11 +149,7 @@ pre {
 .brand-mark {
   width: 30px;
   height: 30px;
-  border-radius: 8px;
-  object-fit: cover;
-  object-position: 50% 42%;
-  transform: scale(1);
-  box-shadow: 0 0 0 1px var(--border);
+  display: block;
 }
 
 .nav {
@@ -295,46 +291,17 @@ pre {
   padding: 88px 0 64px;
 }
 
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px 6px 10px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--text-2);
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 24px;
-  transition: border-color 0.15s;
-}
-
-.pill:hover {
-  border-color: var(--border-strong);
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ok);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 22%, transparent);
-}
-
 .hero h1 {
-  font-size: clamp(2.5rem, 5.4vw, 4rem);
+  font-size: clamp(2.4rem, 5vw, 3.7rem);
   font-weight: 750;
-  letter-spacing: -0.035em;
-  line-height: 1.04;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
 }
 
 .hero h1 span {
   display: block;
-  background: linear-gradient(90deg, #22b8e6, var(--accent) 50%, #c04fd8);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  margin-top: 4px;
+  color: var(--text-2);
 }
 
 .lead {

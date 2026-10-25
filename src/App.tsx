@@ -26,7 +26,7 @@ function Navigation() {
     <header className="site-header">
       <div className="shell header-inner">
         <Link to="/" className="brand" aria-label="Conduit home">
-          <img src="./logo.jpg" alt="" className="brand-mark" />
+          <img src="./favicon.png" alt="" className="brand-mark" />
           <span>Conduit</span>
         </Link>
 
@@ -82,7 +82,7 @@ function Footer() {
       <div className="shell footer-inner">
         <div className="footer-brand">
           <Link to="/" className="brand">
-            <img src="./logo.jpg" alt="" className="brand-mark" />
+            <img src="./favicon.png" alt="" className="brand-mark" />
             <span>Conduit</span>
           </Link>
           <p>

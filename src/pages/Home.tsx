@@ -62,10 +62,6 @@ export default function Home() {
     <main>
       <section className="hero shell">
         <div className="hero-copy">
-          <a className="pill" href={chromeStoreUrl}>
-            <span className="status-dot" /> Live on the Chrome Web Store
-            <ArrowRight size={14} />
-          </a>
           <h1>
             Let your AI agent use the browser.
             <span> Safely, on your machine.</span>
